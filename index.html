@@ -3,318 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CS赛事群MAJOR — 社区公开赛</title>
+<title>CS赛事群 MAJOR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   设计系统 — CS赛事群MAJOR
-   ═══════════════════════════════════════════
-   色彩:
-     --bg-base: oklch(0.07 0.02 270)     # 深空底色
-     --bg-card: oklch(0.12 0.03 265)      # 卡片色
-     --cyan:    oklch(0.78 0.16 195)       # 霓虹主色
-     --pink:    oklch(0.62 0.26 330)       # 霓虹辅色
-     --text:    oklch(0.92 0.01 280)       # 主文字
-     --dim:     oklch(0.55 0.04 270)       # 次级文字
-   字体:
-     标题 EN: Space Grotesk
-     中文:    Noto Sans SC
-     等宽:    JetBrains Mono
-   间距: 4px 基准 (compact)
-   圆角: 6px / 12px
-   节奏: Hero 全出血 → 内容段交替深浅底
-   ═══════════════════════════════════════════ */
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ═══════════════════════════════════════
+   CS赛事群 MAJOR — HLTV 风格版
+   配色参考 hltv.org
+   ═══════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --bg-base: oklch(0.07 0.02 270);
-  --bg-card: oklch(0.12 0.03 265);
-  --bg-raised: oklch(0.16 0.04 260);
-  --cyan: oklch(0.78 0.16 195);
-  --cyan-dim: oklch(0.60 0.12 195);
-  --pink: oklch(0.62 0.26 330);
-  --pink-dim: oklch(0.48 0.18 330);
-  --text: oklch(0.92 0.01 280);
-  --text-dim: oklch(0.55 0.04 270);
-  --radius: 6px;
-  --radius-lg: 12px;
+  --bg-base: #0f1923;
+  --bg-card: #1a2634;
+  --bg-raised: #1e2c3a;
+  --bg-hover: #253544;
+  --yellow: #FFB800;
+  --yellow-dim: #c99400;
+  --blue: #66b0ff;
+  --green: #6bcf7f;
+  --red: #ff5c5c;
+  --text: #e8e8e8;
+  --text-dim: #7a8a9a;
+  --text-muted: #4a5a6a;
+  --border: rgba(255,255,255,0.06);
+  --radius: 4px;
+  --radius-lg: 8px;
 }
 
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
   background: var(--bg-base);
   color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ───── 背景动画网格 ───── */
-.bg-grid {
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(oklch(1 0 0 / 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(1 0 0 / 0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-.bg-glow {
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-.bg-glow::before {
-  content: ''; position: absolute;
-  width: 800px; height: 800px;
-  left: -200px; top: -200px;
-  background: radial-gradient(circle, oklch(0.62 0.26 330 / 0.06) 0%, transparent 70%);
-  animation: glowDrift 12s ease-in-out infinite alternate;
-}
-.bg-glow::after {
-  content: ''; position: absolute;
-  width: 600px; height: 600px;
-  right: -100px; bottom: -100px;
-  background: radial-gradient(circle, oklch(0.78 0.16 195 / 0.05) 0%, transparent 70%);
-  animation: glowDrift2 15s ease-in-out infinite alternate;
-}
-@keyframes glowDrift {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(120px, 80px); }
-}
-@keyframes glowDrift2 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-100px, -60px); }
-}
-
-/* ───── 通用 ───── */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-.section {
-  position: relative;
-  z-index: 1;
-  padding: 100px 0;
-}
+/* ───── 布局 ───── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section { padding: 80px 0; }
 .section-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section-label::before {
-  content: '';
-  width: 24px; height: 1px;
-  background: var(--cyan);
+  color: var(--yellow);
+  margin-bottom: 8px;
 }
 .section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 36px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-.section-title .cn {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 28px;
   font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
 }
 .section-desc {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-dim);
-  max-width: 560px;
-  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 32px;
 }
 
-/* ───── HERO ───── */
-.hero {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px 24px;
+/* ───── 顶部导航条 ───── */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(15,25,35,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
 }
+.topnav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.topnav-logo {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topnav-logo .hl {
+  color: var(--yellow);
+}
+.topnav-links {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.topnav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.topnav-links a:hover { color: var(--text); }
+
+/* ───── HERO / 赛事头 ───── */
+.hero {
+  background: linear-gradient(180deg, #0f1923 0%, #13212e 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 40px;
+}
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.hero-left { flex: 1; }
 .hero-badge {
-  font-family: 'JetBrains Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 12px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--pink);
-  border: 1px solid oklch(0.62 0.26 330 / 0.3);
-  padding: 6px 16px;
-  border-radius: 20px;
-  margin-bottom: 32px;
-  animation: fadeUp 0.8s 0.2s both;
+  font-weight: 600;
+  color: var(--yellow);
+  margin-bottom: 12px;
+}
+.hero-badge::before {
+  content: '';
+  width: 20px; height: 2px;
+  background: var(--yellow);
 }
 .hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 700;
-  letter-spacing: -2px;
-  line-height: 1.05;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
   margin-bottom: 12px;
-  animation: fadeUp 0.8s 0.3s both;
-}
-.hero-title .cn {
-  font-family: 'Noto Sans SC', sans-serif;
-  font-weight: 700;
-}
-.hero-title-glow {
-  background: linear-gradient(135deg, var(--cyan), var(--pink));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: 15px;
-  color: var(--text-dim);
-  max-width: 480px;
-  margin-bottom: 40px;
-  animation: fadeUp 0.8s 0.4s both;
 }
 .hero-meta {
   display: flex;
-  gap: 40px;
-  justify-content: center;
+  gap: 32px;
   flex-wrap: wrap;
-  animation: fadeUp 0.8s 0.5s both;
+  margin-top: 20px;
 }
-.hero-meta-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
+.hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
 .hero-meta-item .number {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--cyan);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
 }
 .hero-meta-item .label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hero-right {
+  flex-shrink: 0;
+  text-align: right;
+}
+.match-counter {
   font-size: 12px;
   color: var(--text-dim);
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.match-counter strong {
+  color: var(--yellow);
+  font-size: 14px;
 }
 .hero-cta {
-  margin-top: 48px;
-  animation: fadeUp 0.8s 0.6s both;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
+  gap: 8px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--bg-base);
-  background: var(--cyan);
-  padding: 14px 36px;
-  border-radius: 6px;
+  color: #0f1923;
+  background: var(--yellow);
+  padding: 10px 24px;
+  border-radius: var(--radius);
   text-decoration: none;
-  transition: all 0.3s;
-  box-shadow: 0 0 30px oklch(0.78 0.16 195 / 0.3);
+  transition: background 0.15s;
 }
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 50px oklch(0.78 0.16 195 / 0.5);
-}
+.btn-primary:hover { background: #e5a600; }
 .btn-outline {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--text-dim);
-  text-decoration: none;
-  border: 1px solid oklch(1 0 0 / 0.1);
+  border: 1px solid var(--border);
   padding: 10px 24px;
-  border-radius: 6px;
-  transition: all 0.3s;
-  margin-left: 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all 0.15s;
 }
-.btn-outline:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
+.btn-outline:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
 
-.scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+/* ───── HLTV 比分卡片 ───── */
+.match-cards { display: flex; flex-direction: column; gap: 6px; }
+.match-card {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  gap: 12px;
+  transition: background 0.12s;
+  cursor: default;
+}
+.match-card:hover { background: var(--bg-hover); }
+.match-card .teams {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-dim);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  animation: bounceDown 2s ease-in-out infinite;
+  gap: 3px;
 }
-.scroll-hint-line {
-  width: 1px; height: 30px;
-  background: var(--text-dim);
+.match-card .team {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+.match-card .team .name { display: flex; align-items: center; gap: 8px; }
+.match-card .team-logo {
+  width: 18px; height: 18px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.match-card .team .score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+.match-card .team .score.win { color: var(--green); }
+.match-card .team .score.lose { color: var(--text-muted); }
+.match-card .vs-divider {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.match-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 80px;
+}
+.match-status {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.match-status.live { background: rgba(108,207,127,0.15); color: var(--green); }
+.match-status.played { background: rgba(255,255,255,0.04); color: var(--text-muted); }
+.match-status.upcoming { background: rgba(102,176,255,0.1); color: var(--blue); }
+.match-map {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.match-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
 }
 
-/* ───── Tournament Info + Bracket ───── */
-.tournament-info {
-  background: var(--bg-card);
-}
+/* ───── 赛事信息 ───── */
+.tournament-info { background: var(--bg-base); }
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin-top: 40px;
+  gap: 48px;
 }
 .info-text p {
   font-size: 14px;
   color: var(--text-dim);
-  line-height: 1.8;
-  margin-bottom: 16px;
+  line-height: 1.7;
+  margin-bottom: 20px;
 }
 .info-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 32px;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
 }
-.info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+.info-item { display: flex; flex-direction: column; gap: 2px; }
 .info-item .key {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
 }
 .info-item .val {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text);
 }
 
-/* ───── Full Bracket Tree ───── */
-.bracket-section {
-  margin-top: 32px;
-}
+/* ───── 对阵表 ───── */
+.bracket-section { margin-top: 24px; }
 .bracket-wrap {
   overflow-x: auto;
   padding: 8px 0 12px;
@@ -324,49 +331,31 @@ body {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 0;
-  min-width: 820px;
+  min-width: 780px;
 }
-.bracket-row {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-}
+.bracket-row { display: flex; align-items: stretch; gap: 0; }
 .bracket-row.win { grid-column: 1; grid-row: 1; }
 .bracket-row.lose { grid-column: 1; grid-row: 2; }
-
 .bracket-gf-col {
   grid-column: 2;
   grid-row: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px 0 4px;
+  padding: 0 4px 0 2px;
 }
-
-/* columns */
-.b-col {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  position: relative;
-}
-.b-col-matches {
-  width: 155px;
-  padding: 0 5px;
-}
-.b-col-conn {
-  width: 28px;
-  position: relative;
-}
+.b-col { display: flex; flex-direction: column; flex-shrink: 0; position: relative; }
+.b-col-matches { width: 145px; padding: 0 4px; }
+.b-col-conn { width: 24px; position: relative; }
 .b-col-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--text-muted);
   text-align: center;
   padding-bottom: 4px;
-  border-bottom: 1px solid oklch(1 0 0 / 0.06);
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   height: 22px;
   display: flex;
@@ -374,782 +363,588 @@ body {
   justify-content: center;
   margin-bottom: 6px;
 }
-
-/* match card - two rows stacked */
-.b-match {
-  cursor: default;
-}
 .b-team {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px;
-  background: var(--bg-raised);
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 500;
-  height: 28px;
+  padding: 4px 10px;
+  background: var(--bg-card);
+  font-size: 11px;
+  font-weight: 600;
+  height: 26px;
   border-left: 2px solid transparent;
-  transition: all 0.12s;
+  transition: background 0.12s;
   white-space: nowrap;
+  border: 1px solid var(--border);
 }
-.b-match .b-team:first-child {
-  margin-bottom: 1px;
-  border-radius: 3px 3px 2px 2px;
-}
-.b-match .b-team:last-child {
-  border-radius: 2px 2px 3px 3px;
-}
-.b-match:hover .b-team {
-  background: oklch(0.2 0.05 260);
-}
-.b-team.w-side {
-  border-left-color: var(--cyan-dim);
-}
-.b-team.l-side {
-  border-left-color: var(--pink-dim);
-  opacity: 0.65;
-}
+.b-match:hover .b-team { background: var(--bg-hover); }
+.b-match .b-team:first-child { margin-bottom: 1px; }
 .b-team .b-score {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--text-dim);
+  color: var(--text-muted);
 }
-.b-match-placeholder {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: var(--text-dim);
-  border: 1px dashed oklch(1 0 0 / 0.08);
-  border-radius: 3px;
-  background: oklch(1 0 0 / 0.02);
-}
+.b-team.win-b { border-left-color: var(--yellow); }
+.b-team.win-b .b-score { color: var(--green); font-weight: 700; }
 
-/* champion card */
+/* champion */
 .b-champion {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, oklch(0.78 0.16 195 / 0.12), oklch(0.62 0.26 330 / 0.12));
-  border: 1px solid oklch(0.78 0.16 195 / 0.25);
-  border-radius: 8px;
-  padding: 16px 14px;
+  background: rgba(255,184,0,0.06);
+  border: 1px solid rgba(255,184,0,0.2);
+  border-radius: 6px;
+  padding: 14px 12px;
   text-align: center;
-  min-width: 90px;
+  min-width: 80px;
 }
-.b-champion .icon {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
+.b-champion .icon { font-size: 18px; margin-bottom: 4px; }
 .b-champion .label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
 }
-.b-champion .label.win {
-  background: linear-gradient(135deg, var(--cyan), var(--pink));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 13px;
-  letter-spacing: 3px;
-}
+.b-champion .label.win { color: var(--yellow); font-size: 12px; letter-spacing: 3px; }
 
 /* connector lines */
-.conn-spine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: oklch(1 0 0 / 0.07);
-  pointer-events: none;
-}
-.conn-group {
-  position: relative;
-}
-/* horizontal line entering from left match */
-.conn-in {
-  position: absolute;
-  left: 0;
-  width: 50%;
-  height: 2px;
-  background: var(--cyan-dim);
-}
-.conn-in.top { top: 0; }
-.conn-in.bot { bottom: 0; }
-.conn-in.pink { background: var(--pink-dim); }
-/* vertical merge segment */
-.conn-v {
-  position: absolute;
-  left: 50%;
-  width: 2px;
-  background: var(--cyan-dim);
-}
-.conn-v.merge-dn { top: 0; bottom: 50%; }
-.conn-v.merge-up { top: 50%; bottom: 0; }
-.conn-v.pink { background: var(--pink-dim); }
-/* horizontal line exiting to right */
-.conn-out {
-  position: absolute;
-  right: 0;
-  width: 50%;
-  height: 2px;
-  background: var(--cyan-dim);
-  top: 50%;
-}
-.conn-out.pink { background: var(--pink-dim); }
-/* left-only horizontal (for losers→GF connection) */
-.conn-left {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  top: 50%;
-  background: var(--pink-dim);
-}
+.conn-spine { position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);pointer-events:none; }
+.conn-group { position:relative; }
+.conn-in { position:absolute;left:0;width:50%;height:2px;background:var(--yellow-dim); }
+.conn-in.top { top:0; }
+.conn-in.bot { bottom:0; }
+.conn-in.pink { background: rgba(255,255,255,0.1); }
+.conn-v { position:absolute;left:50%;width:2px;background:var(--yellow-dim); }
+.conn-v.merge-dn { top:0;bottom:50%; }
+.conn-v.merge-up { top:50%;bottom:0; }
+.conn-v.pink { background: rgba(255,255,255,0.1); }
+.conn-out { position:absolute;right:0;width:50%;height:2px;background:var(--yellow-dim);top:50%; }
+.conn-out.pink { background: rgba(255,255,255,0.1); }
+.conn-left { position:absolute;left:0;width:100%;height:2px;top:50%;background:rgba(255,255,255,0.1); }
 
-/* section labels within bracket */
-.bracket-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+.bracket-header { display:flex;align-items:center;gap:12px;margin-bottom:16px; }
 .bracket-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 12px;
-  border-radius: 10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:2px 10px;
+  border-radius:2px;
 }
-.bracket-tag.win {
-  color: var(--cyan);
-  border: 1px solid var(--cyan-dim);
-}
-.bracket-tag.lose {
-  color: var(--pink);
-  border: 1px solid var(--pink-dim);
-}
+.bracket-tag.win { color:var(--yellow); border:1px solid rgba(255,184,0,0.25); background:rgba(255,184,0,0.06); }
+.bracket-tag.lose { color:var(--text-dim); border:1px solid var(--border); }
 
-/* ───── Teams ───── */
+/* ───── 战队列表 ───── */
 .teams-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 32px;
+  gap: 12px;
 }
 .team-card {
   background: var(--bg-card);
-  border: 1px solid oklch(1 0 0 / 0.06);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
   text-align: center;
-  transition: all 0.3s;
+  transition: all 0.15s;
   cursor: default;
 }
 .team-card:hover {
-  border-color: oklch(0.78 0.16 195 / 0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px oklch(0 0 0 / 0.3);
+  border-color: var(--yellow);
+  background: var(--bg-hover);
 }
 .team-logo {
-  width: 64px; height: 64px;
-  border-radius: 50%;
+  width: 48px; height: 48px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px;
+  margin: 0 auto 10px;
   font-weight: 700;
+  font-size: 18px;
   color: #fff;
 }
-.team-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+.team-name { font-weight: 600; font-size: 15px; }
+.team-record {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 4px;
 }
 
-/* ───── Schedule ───── */
-.schedule {
-  background: var(--bg-card);
-}
-.schedule-timeline {
-  margin-top: 40px;
-  position: relative;
-}
-.schedule-timeline::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: oklch(1 0 0 / 0.08);
-}
-.schedule-item {
-  display: flex;
-  gap: 24px;
-  padding: 20px 0;
-  position: relative;
-}
-.schedule-item::before {
-  content: '';
-  position: absolute;
-  left: 14px;
-  top: 24px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--bg-base);
-  border: 2px solid var(--cyan-dim);
-}
-.schedule-item.is-highlight::before {
-  border-color: var(--cyan);
-  background: var(--cyan);
-  box-shadow: 0 0 12px oklch(0.78 0.16 195 / 0.4);
-}
-.schedule-item.is-pink::before {
-  border-color: var(--pink);
-}
-.schedule-item.is-pink.is-highlight::before {
-  background: var(--pink);
-  border-color: var(--pink);
-  box-shadow: 0 0 12px oklch(0.62 0.26 330 / 0.4);
-}
-.schedule-time {
-  width: 80px;
-  flex-shrink: 0;
-  text-align: right;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--cyan);
-  padding-top: 2px;
-}
-.schedule-item.is-pink .schedule-time {
-  color: var(--pink);
-}
-.schedule-content {
-  flex: 1;
-}
-.schedule-content h4 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.schedule-content h4 .cn {
-  font-family: 'Noto Sans SC', sans-serif;
-}
-.schedule-content p {
-  font-size: 13px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
+/* ───── 赛程表 ───── */
+.schedule-section { background: var(--bg-card); }
 
 /* ───── CTA ───── */
 .cta-section {
   text-align: center;
-  padding: 120px 0;
+  padding: 80px 0;
 }
-.cta-section .section-title {
-  font-size: 44px;
-  margin-bottom: 12px;
-}
-.cta-section .section-desc {
-  margin: 0 auto 40px;
-}
-.cta-group {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
+.cta-section .section-desc { margin: 0 auto 32px; }
+.cta-group { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .btn-qq {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: 13px;
   font-weight: 600;
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   color: #fff;
-  background: oklch(0.62 0.26 330);
-  padding: 14px 36px;
-  border-radius: 6px;
+  background: #2a6bcb;
+  padding: 10px 28px;
+  border-radius: var(--radius);
   text-decoration: none;
-  transition: all 0.3s;
-  box-shadow: 0 0 30px oklch(0.62 0.26 330 / 0.3);
+  transition: background 0.15s;
 }
-.btn-qq:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 50px oklch(0.62 0.26 330 / 0.5);
-}
+.btn-qq:hover { background: #1e5ab5; }
 
 /* ───── Footer ───── */
 .footer {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid oklch(1 0 0 / 0.06);
-  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
   text-align: center;
   font-size: 12px;
-  color: var(--text-dim);
+  color: var(--text-muted);
 }
 
-/* ───── Animations ───── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes bounceDown {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
-}
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ───── RESPONSIVE ───── */
+/* ───── 响应式 ───── */
 @media (max-width: 900px) {
-  .container { padding: 0 24px; }
-  .hero-title { font-size: 40px; }
-  .info-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-inner { flex-direction: column; text-align: center; }
+  .hero-right { text-align: center; }
+  .hero-cta { justify-content: center; }
+  .info-grid { grid-template-columns: 1fr; }
   .teams-grid { grid-template-columns: repeat(2, 1fr); }
   .b-col-matches { width: 130px; }
+  .topnav-links { display: none; }
 }
 @media (max-width: 500px) {
-  .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .hero-meta { gap: 20px; }
-  .section { padding: 60px 0; }
-  .section-title { font-size: 28px; }
+  .container { padding: 0 16px; }
+  .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .section { padding: 48px 0; }
+  .match-card { padding: 6px 12px; }
 }
 
-/* ───── Tweaks Panel ───── */
-#tweaks-toggle {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 100;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  border: none;
-  background: var(--bg-raised);
-  color: var(--text-dim);
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 20px oklch(0 0 0 / 0.4);
-}
-#tweaks-toggle:hover {
-  color: var(--cyan);
-  border-color: var(--cyan);
-}
-#tweaks-panel {
-  position: fixed;
-  bottom: 80px;
-  right: 24px;
-  z-index: 99;
-  background: var(--bg-raised);
-  border: 1px solid oklch(1 0 0 / 0.1);
-  border-radius: var(--radius-lg);
-  padding: 20px 24px;
-  min-width: 220px;
-  display: none;
-  box-shadow: 0 8px 40px oklch(0 0 0 / 0.5);
-}
-#tweaks-panel.open { display: block; }
-#tweaks-panel h4 {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-dim);
-  margin-bottom: 16px;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.tweak-group {
-  margin-bottom: 16px;
-}
-.tweak-group:last-child { margin-bottom: 0; }
-.tweak-group label {
-  display: block;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-}
-.tweak-group input[type="range"] {
-  width: 100%;
-  accent-color: var(--cyan);
-}
-.tweak-group input[type="color"] {
-  width: 100%;
-  height: 32px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-}
+/* ───── 工具类 ───── */
+.fade-in { opacity:0; transform:translateY(16px); transition:opacity 0.5s ease, transform 0.5s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<!-- ═══ 导航条 ═══ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-logo">
+      <span class="hl">CS</span>赛事群 <span style="font-weight:400;color:var(--text-dim);font-size:13px;">MAJOR</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#info">赛事</a>
+      <a href="#teams">战队</a>
+      <a href="#schedule">赛程</a>
+      <a href="#cta">加入</a>
+    </div>
+  </div>
+</nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-badge">Community Open 2026</div>
-  <h1 class="hero-title">
-    CS<span class="hero-title-glow">赛事群MAJOR</span>
-  </h1>
-  <p class="hero-sub">
-    Counter-Strike 2 社区公开赛 · 八支战队争夺首个社区冠军头衔
-  </p>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <span class="number">05.05</span>
-      <span class="label">Match Day</span>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">Community Open 2026</div>
+        <h1 class="hero-title">CS赛事群 MAJOR<br><span style="color:var(--yellow);">社区公开赛</span></h1>
+        <p style="font-size:14px;color:var(--text-dim);max-width:480px;">
+          Counter-Strike 2 · 八支战队 · 双败淘汰 · 冠军加冕
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="number">05.05</span>
+            <span class="label">开赛日</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="number">8</span>
+            <span class="label">战队</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="number">双败</span>
+            <span class="label">淘汰制</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="number">线上</span>
+            <span class="label">Online</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="match-counter">下一场 · <strong>14:00</strong></div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 32px;min-width:220px;">
+          <!-- 预览比分卡片 -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <div style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;">
+                <span style="display:inline-flex;width:22px;height:22px;border-radius:3px;background:linear-gradient(135deg,#F1C40F,#E67E22);align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">G2</span>
+                G2
+              </div>
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;color:var(--text);">vs</span>
+              <div style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;">
+                NAVI
+                <span style="display:inline-flex;width:22px;height:22px;border-radius:3px;background:linear-gradient(135deg,#3498DB,#2980B9);align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">N</span>
+              </div>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);text-align:center;font-family:'JetBrains Mono',monospace;">
+              BO1 · Map TBD
+            </div>
+          </div>
+        </div>
+        <div class="hero-cta" style="margin-top:16px;">
+          <a href="#cta" class="btn-primary">Join Now</a>
+          <a href="#bracket" class="btn-outline">Bracket</a>
+        </div>
+      </div>
     </div>
-    <div class="hero-meta-item">
-      <span class="number">8</span>
-      <span class="label">Teams</span>
-    </div>
-    <div class="hero-meta-item">
-      <span class="number">双败淘汰</span>
-      <span class="label">Double Elim</span>
-    </div>
-    <div class="hero-meta-item">
-      <span class="number">线上</span>
-      <span class="label">Online</span>
-    </div>
-  </div>
-  <div class="hero-cta">
-    <a href="#cta" class="btn-primary">Join Now</a>
-    <a href="#bracket" class="btn-outline">View Bracket</a>
-  </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-hint-line"></div>
   </div>
 </section>
 
-<!-- ═══ TOURNAMENT INFO ═══ -->
-<section class="section tournament-info" id="bracket">
+<!-- ═══ 赛事信息 + 对阵表 ═══ -->
+<section class="section tournament-info" id="info">
   <div class="container">
     <div class="section-label">Tournament</div>
-    <h2 class="section-title">CS赛事群MAJOR <span class="cn">· 赛事信息</span></h2>
+    <h2 class="section-title">CS赛事群 MAJOR · 赛事信息</h2>
     <p class="section-desc">纯社区荣誉赛事，八支战队通过双败淘汰制争夺冠军。全程线上，5 月 5 日激战一日。</p>
 
     <div class="info-grid">
-      <div class="info-text">
-        <p>
-          CS赛事群MAJOR 是面向社群玩家举办的 Counter-Strike 2 社区公开赛。
-          八支战队分为胜者组与败者组，双败淘汰制确保每支队伍都有容错空间。
-          冠军不仅带走荣誉，更将成为 CS赛事群 首个官方冠军。
-        </p>
+      <div>
+        <div class="info-text">
+          <p>
+            CS赛事群 MAJOR 是面向社群玩家举办的 Counter-Strike 2 社区公开赛。
+            八支战队分为胜者组与败者组，双败淘汰制确保每支队伍都有容错空间。
+            冠军不仅带走荣誉，更将成为 CS赛事群 首个官方冠军。
+          </p>
+        </div>
         <div class="info-detail">
           <div class="info-item">
-            <span class="key">Format</span>
-            <span class="val">Double Elimination</span>
+            <span class="key">赛制</span>
+            <span class="val">双败淘汰</span>
           </div>
           <div class="info-item">
-            <span class="key">Teams</span>
+            <span class="key">战队</span>
             <span class="val">8</span>
           </div>
           <div class="info-item">
-            <span class="key">Venue</span>
-            <span class="val">Online</span>
+            <span class="key">场地</span>
+            <span class="val">线上</span>
           </div>
           <div class="info-item">
-            <span class="key">Prize</span>
-            <span class="val">🏆 社区冠军</span>
+            <span class="key">冠军</span>
+            <span class="val" style="color:var(--yellow);">社区冠军</span>
           </div>
         </div>
       </div>
 
-      <div class="bracket-section">
+      <!-- 对阵图 -->
+      <div class="bracket-section" id="bracket">
         <div class="bracket-header">
-          <span class="bracket-tag win">Winners Bracket</span>
-          <span class="bracket-tag lose">Losers Bracket</span>
+          <span class="bracket-tag win">胜者组</span>
+          <span class="bracket-tag lose">败者组</span>
         </div>
         <div class="bracket-wrap">
           <div class="bracket-flow">
-
-            <!-- ═══ WINNERS ROW ═══ -->
+            <!-- WINNERS -->
             <div class="bracket-row win">
-
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WR1</div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team w-side"><span>G2</span><span class="b-score"></span></div>
-                  <div class="b-team w-side"><span>NAVI</span><span class="b-score"></span></div>
+                  <div class="b-team win-b"><span>G2</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span>NAVI</span><span class="b-score">10</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team w-side"><span>FAZE</span></div>
-                  <div class="b-team w-side"><span>VIT</span></div>
+                  <div class="b-team"><span>FAZE</span><span class="b-score">9</span></div>
+                  <div class="b-team win-b"><span>VIT</span><span class="b-score">13</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team w-side"><span>PV</span></div>
-                  <div class="b-team w-side"><span>TS</span></div>
+                  <div class="b-team win-b"><span>PV</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span>TS</span><span class="b-score">6</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team w-side"><span>FLCN</span></div>
-                  <div class="b-team w-side"><span>MOUZ</span></div>
+                  <div class="b-team"><span>FLCN</span><span class="b-score">11</span></div>
+                  <div class="b-team win-b"><span>MOUZ</span><span class="b-score">16</span></div>
                 </div>
               </div>
-
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
-                <div class="conn-group" style="flex:2;">
-                  <div class="conn-in top"></div><div class="conn-v merge-dn"></div>
-                  <div class="conn-in bot"></div><div class="conn-v merge-up"></div>
-                  <div class="conn-out"></div>
-                </div>
-                <div class="conn-group" style="flex:2;">
-                  <div class="conn-in top"></div><div class="conn-v merge-dn"></div>
-                  <div class="conn-in bot"></div><div class="conn-v merge-up"></div>
-                  <div class="conn-out"></div>
-                </div>
+                <div class="conn-group" style="flex:2;"><div class="conn-in top"></div><div class="conn-v merge-dn"></div><div class="conn-in bot"></div><div class="conn-v merge-up"></div><div class="conn-out"></div></div>
+                <div class="conn-group" style="flex:2;"><div class="conn-in top"></div><div class="conn-v merge-dn"></div><div class="conn-in bot"></div><div class="conn-v merge-up"></div><div class="conn-out"></div></div>
               </div>
-
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WSF</div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team w-side"><span>M1 Winner</span></div>
-                  <div class="b-team w-side"><span>M2 Winner</span></div>
-                </div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team w-side"><span>M3 Winner</span></div>
-                  <div class="b-team w-side"><span>M4 Winner</span></div>
-                </div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>G2</span></div><div class="b-team"><span>VIT</span></div></div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>PV</span></div><div class="b-team"><span>MOUZ</span></div></div>
               </div>
-
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
-                <div class="conn-group" style="flex:4;">
-                  <div class="conn-in top"></div><div class="conn-v merge-dn"></div>
-                  <div class="conn-in bot"></div><div class="conn-v merge-up"></div>
-                  <div class="conn-out"></div>
-                </div>
+                <div class="conn-group" style="flex:4;"><div class="conn-in top"></div><div class="conn-v merge-dn"></div><div class="conn-in bot"></div><div class="conn-v merge-up"></div><div class="conn-out"></div></div>
               </div>
-
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WF</div>
-                <div class="b-match" style="flex:4;">
-                  <div class="b-team w-side"><span>WSF1 Winner</span></div>
-                  <div class="b-team w-side"><span>WSF2 Winner</span></div>
-                </div>
+                <div class="b-match" style="flex:4;"><div class="b-team"><span>WSF1 Winner</span></div><div class="b-team"><span>WSF2 Winner</span></div></div>
               </div>
-
-              <div class="b-col b-col-conn" style="width:24px;">
+              <div class="b-col b-col-conn" style="width:20px;">
                 <div class="conn-spine" style="height:50%;"></div>
-                <div class="conn-group" style="flex:4;">
-                  <div class="conn-out" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;background:var(--cyan-dim);"></div>
-                </div>
+                <div class="conn-group" style="flex:4;"><div class="conn-out" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;background:var(--yellow-dim);"></div></div>
               </div>
-
-            </div><!-- /winners row -->
-
-            <!-- ═══ LOSERS ROW ═══ -->
+            </div>
+            <!-- LOSERS -->
             <div class="bracket-row lose">
-
               <div class="b-col b-col-matches">
-                <div class="b-col-label" style="color:var(--pink-dim);">LR1</div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team l-side"><span>M1 Loser</span></div>
-                  <div class="b-team l-side"><span>M2 Loser</span></div>
-                </div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team l-side"><span>M3 Loser</span></div>
-                  <div class="b-team l-side"><span>M4 Loser</span></div>
-                </div>
+                <div class="b-col-label" style="color:var(--text-muted);">LR1</div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>NAVI</span><span class="b-score">16</span></div><div class="b-team"><span class="lose">FAZE</span><span class="b-score">12</span></div></div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>TS</span><span class="b-score">9</span></div><div class="b-team"><span>FLCN</span><span class="b-score">16</span></div></div>
               </div>
-
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
-                <div class="conn-group" style="flex:2;">
-                  <div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div>
-                  <div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div>
-                  <div class="conn-out pink"></div>
-                </div>
-                <div class="conn-group" style="flex:2;">
-                  <div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div>
-                  <div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div>
-                  <div class="conn-out pink"></div>
-                </div>
+                <div class="conn-group" style="flex:2;"><div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div><div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div><div class="conn-out pink"></div></div>
+                <div class="conn-group" style="flex:2;"><div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div><div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div><div class="conn-out pink"></div></div>
               </div>
-
               <div class="b-col b-col-matches">
-                <div class="b-col-label" style="color:var(--pink-dim);">LR2</div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team l-side"><span>LR1 W1</span></div>
-                  <div class="b-team l-side"><span>L(WSF1)</span></div>
-                </div>
-                <div class="b-match" style="flex:2;">
-                  <div class="b-team l-side"><span>LR1 W2</span></div>
-                  <div class="b-team l-side"><span>L(WSF2)</span></div>
-                </div>
+                <div class="b-col-label" style="color:var(--text-muted);">LR2</div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>NAVI</span></div><div class="b-team"><span>L(WSF1)</span></div></div>
+                <div class="b-match" style="flex:2;"><div class="b-team"><span>FLCN</span></div><div class="b-team"><span>L(WSF2)</span></div></div>
               </div>
-
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
-                <div class="conn-group" style="flex:4;">
-                  <div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div>
-                  <div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div>
-                  <div class="conn-out pink"></div>
-                </div>
+                <div class="conn-group" style="flex:4;"><div class="conn-in top pink"></div><div class="conn-v merge-dn pink"></div><div class="conn-in bot pink"></div><div class="conn-v merge-up pink"></div><div class="conn-out pink"></div></div>
               </div>
-
               <div class="b-col b-col-matches">
-                <div class="b-col-label" style="color:var(--pink-dim);">LR3</div>
-                <div class="b-match" style="flex:4;">
-                  <div class="b-team l-side"><span>LR2 W1</span></div>
-                  <div class="b-team l-side"><span>LR2 W2</span></div>
-                </div>
+                <div class="b-col-label" style="color:var(--text-muted);">LR3</div>
+                <div class="b-match" style="flex:4;"><div class="b-team"><span>LR2 W1</span></div><div class="b-team"><span>LR2 W2</span></div></div>
               </div>
-
-              <div class="b-col b-col-conn" style="width:24px;">
+              <div class="b-col b-col-conn" style="width:20px;">
                 <div class="conn-spine" style="height:50%;"></div>
-                <div class="conn-group" style="flex:4;">
-                  <div class="conn-out pink" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;"></div>
-                </div>
+                <div class="conn-group" style="flex:4;"><div class="conn-out pink" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;"></div></div>
               </div>
-
-              <div class="b-col" style="width:90px;">
-                <div class="b-col-label" style="color:var(--pink-dim);">Losers Final</div>
+              <div class="b-col" style="width:80px;">
+                <div class="b-col-label" style="color:var(--text-muted);">L-Final</div>
                 <div style="flex:4;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                  <div class="b-champion" style="background:linear-gradient(135deg,oklch(0.62 0.26 330 / 0.08),oklch(0.48 0.18 330 / 0.08));border-color:oklch(0.62 0.26 330 / 0.2);">
-                    <div class="label" style="font-size:10px;letter-spacing:1px;color:var(--pink-dim);">LR3 Winner</div>
-                    <div class="label" style="font-size:9px;letter-spacing:1px;color:var(--text-dim);">vs L(WF)</div>
+                  <div class="b-champion" style="border-color:var(--border);">
+                    <div class="label" style="font-size:9px;color:var(--text-muted);">LR3 Winner</div>
+                    <div class="label" style="font-size:8px;color:var(--text-muted);">vs L(WF)</div>
                   </div>
                 </div>
               </div>
-
-              <div class="b-col" style="width:20px;">
-                <div style="flex:4;position:relative;">
-                  <div class="conn-left"></div>
-                </div>
+              <div class="b-col" style="width:16px;">
+                <div style="flex:4;position:relative;"><div class="conn-left"></div></div>
               </div>
-
-            </div><!-- /losers row -->
-
-            <!-- ═══ GRAND FINAL ═══ -->
+            </div>
+            <!-- GRAND FINAL -->
             <div class="bracket-gf-col">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);">Grand Final</div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);">Grand Final</div>
                 <div class="b-champion">
                   <div class="icon">🏆</div>
                   <div class="label win">CHAMPION</div>
                 </div>
               </div>
             </div>
-
-          </div><!-- /bracket-flow -->
-        </div><!-- /bracket-wrap -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ TEAMS ═══ -->
-<section class="section">
+<!-- ═══ 战队 ═══ -->
+<section class="section" id="teams">
   <div class="container">
     <div class="section-label">Teams</div>
-    <h2 class="section-title">参赛战队 <span class="cn">· 八强集结</span></h2>
+    <h2 class="section-title">参赛战队 · 八强集结</h2>
     <p class="section-desc">8 支 CS2 战队已就位，谁能捧起首个社区冠军奖杯？</p>
 
     <div class="teams-grid">
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #F1C40F, #E67E22);">G2</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</div>
         <div class="team-name">G2</div>
+        <div class="team-record">1-0 · +6</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #3498DB, #2980B9);">NAVI</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">NAVI</div>
         <div class="team-name">NAVI</div>
+        <div class="team-record">0-1 · -6</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #E74C3C, #C0392B);">FAZE</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">FAZE</div>
         <div class="team-name">FAZE</div>
+        <div class="team-record">0-1 · -4</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #2ECC71, #27AE60);">VIT</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">VIT</div>
         <div class="team-name">VIT</div>
+        <div class="team-record">1-0 · +4</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #9B59B6, #8E44AD);">PV</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">PV</div>
         <div class="team-name">PV</div>
+        <div class="team-record">1-0 · +10</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #1ABC9C, #16A085);">TS</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">TS</div>
         <div class="team-name">TS</div>
+        <div class="team-record">0-1 · -10</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #F39C12, #D35400);">FLCN</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">FLCN</div>
         <div class="team-name">FLCN</div>
+        <div class="team-record">0-1 · -5</div>
       </div>
       <div class="team-card fade-in">
-        <div class="team-logo" style="background: linear-gradient(135deg, #E91E63, #C2185B);">MOUZ</div>
+        <div class="team-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">MOUZ</div>
         <div class="team-name">MOUZ</div>
+        <div class="team-record">1-0 · +5</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SCHEDULE ═══ -->
-<section class="section schedule">
+<!-- ═══ 赛程（HLTV 比分卡片） ═══ -->
+<section class="section schedule-section" id="schedule">
   <div class="container">
     <div class="section-label">Schedule</div>
-    <h2 class="section-title">Match Day <span class="cn">· 赛程</span></h2>
+    <h2 class="section-title">Match Day · 赛程与结果</h2>
     <p class="section-desc">5 月 5 日，从首轮到决赛，一日决出冠军。</p>
 
-    <div class="schedule-timeline">
-      <div class="schedule-item is-highlight fade-in">
-        <div class="schedule-time">14:00</div>
-        <div class="schedule-content">
-          <h4>Winners Round 1 <span class="cn">· 胜者组首轮</span></h4>
-          <p>G2 vs NAVI · FAZE vs VIT · PV vs TS · FLCN vs MOUZ — 四场 BO1 同时开打</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <!-- WR1 -->
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-left:4px;">14:00 · 胜者组首轮</div>
+        <div class="match-cards">
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span>G2</div><span class="score win">16</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span>NAVI</div><span class="score lose">10</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Mirage</span>
+            </div>
+          </div>
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span>FAZE</div><span class="score lose">9</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span>VIT</div><span class="score win">13</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Anubis</span>
+            </div>
+          </div>
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span>PV</div><span class="score win">16</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span>TS</div><span class="score lose">6</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Dust2</span>
+            </div>
+          </div>
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span>FLCN</div><span class="score lose">11</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span>MOUZ</div><span class="score win">16</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Inferno</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="schedule-item fade-in">
-        <div class="schedule-time">16:30</div>
-        <div class="schedule-content">
-          <h4>Winners Semi <span class="cn">· 胜者组半决赛</span> + Losers R1 <span class="cn">· 败者组首轮</span></h4>
-          <p>胜者组四强对决，败者组首轮同时进行 — BO1</p>
+
+      <!-- WSF -->
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-left:4px;">16:30 · 胜者组半决赛</div>
+        <div class="match-cards">
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span>G2</div><span class="score win">2</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span>VIT</div><span class="score lose">0</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">BO3</span>
+            </div>
+          </div>
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span>PV</div><span class="score lose">1</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span>MOUZ</div><span class="score win">2</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">BO3</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px;padding-left:4px;">16:30 · 败者组首轮</div>
+        <div class="match-cards">
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span>NAVI</div><span class="score win">16</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span>FAZE</div><span class="score lose">12</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Nuke</span>
+            </div>
+          </div>
+          <div class="match-card fade-in">
+            <div class="teams">
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span>TS</div><span class="score lose">9</span></div>
+              <div class="team"><div class="name"><span class="team-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span>FLCN</div><span class="score win">16</span></div>
+            </div>
+            <div class="match-info">
+              <span class="match-status played">Played</span>
+              <span class="match-map">Ancient</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="schedule-item fade-in">
-        <div class="schedule-time">19:00</div>
-        <div class="schedule-content">
-          <h4>Winners Final <span class="cn">· 胜者组决赛</span> + Losers R2 <span class="cn">· 败者组第二轮</span></h4>
-          <p>胜者组决赛 BO3，败者组第二轮 BO1</p>
+    </div>
+
+    <!-- 后续赛程 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px;">
+      <div class="match-card fade-in" style="flex-direction:column;align-items:stretch;padding:16px;">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-muted);margin-bottom:8px;">19:00 · 胜者组决赛</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-weight:600;font-size:13px;">G2</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-muted);">vs</span>
+          <span style="font-weight:600;font-size:13px;">MOUZ</span>
+        </div>
+        <div style="text-align:right;margin-top:8px;">
+          <span class="match-status upcoming">BO3</span>
         </div>
       </div>
-      <div class="schedule-item is-pink fade-in">
-        <div class="schedule-time">21:00</div>
-        <div class="schedule-content">
-          <h4>Losers R3 <span class="cn">· 败者组第三轮</span></h4>
-          <p>败者组决赛 BO3，胜者进军总决赛</p>
+      <div class="match-card fade-in" style="flex-direction:column;align-items:stretch;padding:16px;">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-muted);margin-bottom:8px;">19:00 · 败者组第二轮</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-weight:600;font-size:13px;">NAVI</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-muted);">vs</span>
+          <span style="font-weight:600;font-size:13px;">FLCN</span>
+        </div>
+        <div style="text-align:right;margin-top:8px;">
+          <span class="match-status upcoming">BO1</span>
         </div>
       </div>
-      <div class="schedule-item is-pink is-highlight fade-in">
-        <div class="schedule-time">23:00</div>
-        <div class="schedule-content">
-          <h4>Grand Final <span class="cn">· 总决赛</span></h4>
-          <p>BO3 巅峰对决 — 冠军诞生！</p>
+      <div class="match-card fade-in" style="flex-direction:column;align-items:stretch;padding:16px;">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-muted);margin-bottom:8px;">23:00 · 总决赛</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+          <span style="font-weight:600;font-size:13px;color:var(--yellow);">TBD</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-muted);">vs</span>
+          <span style="font-weight:600;font-size:13px;color:var(--yellow);">TBD</span>
+        </div>
+        <div style="text-align:right;margin-top:8px;">
+          <span class="match-status upcoming" style="background:rgba(255,184,0,0.1);color:var(--yellow);">BO3</span>
         </div>
       </div>
     </div>
@@ -1160,15 +955,13 @@ body {
 <section class="section" id="cta">
   <div class="container">
     <div class="cta-section">
-      <div class="section-label" style="justify-content:center;">Register</div>
-      <h2 class="section-title">
-        Join <span class="hero-title-glow">the Battle</span>
-      </h2>
+      <div class="section-label" style="text-align:center;justify-content:center;">Join</div>
+      <h2 class="section-title" style="font-size:32px;">加入 <span style="color:var(--yellow);">战场</span></h2>
       <p class="section-desc" style="text-align:center;">
         想参赛或观战？加入 CS赛事群 QQ 群，获取最新赛程、直播链接和社区资讯。
       </p>
       <div class="cta-group">
-        <a href="#" class="btn-qq" onclick="showQQ()">Join QQ Group</a>
+        <a href="#" class="btn-qq" onclick="showQQ()">加入 QQ 群</a>
       </div>
     </div>
   </div>
@@ -1182,65 +975,14 @@ body {
   </div>
 </footer>
 
-<!-- ═══ TWEAKS PANEL ═══ -->
-<button id="tweaks-toggle" onclick="toggleTweaks()">🎨</button>
-<div id="tweaks-panel">
-  <h4>Tweaks</h4>
-  <div class="tweak-group">
-    <label>Cyan Accent</label>
-    <input type="color" id="tCyan" value="#00d4ff" oninput="updateTweak('--cyan', this.value)">
-  </div>
-  <div class="tweak-group">
-    <label>Pink Accent</label>
-    <input type="color" id="tPink" value="#e040a0" oninput="updateTweak('--pink', this.value)">
-  </div>
-  <div class="tweak-group">
-    <label>Glow Intensity</label>
-    <input type="range" id="tGlow" min="0" max="100" value="100" oninput="updateGlow(this.value)">
-  </div>
-</div>
-
 <script>
-/* ───── Scroll Fade-in ───── */
+/* ───── Scroll fade-in ───── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('visible');
   });
 }, { threshold: 0.15 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-/* ───── Tweaks ───── */
-function toggleTweaks() {
-  document.getElementById('tweaks-panel').classList.toggle('open');
-}
-function updateTweak(varName, val) {
-  document.documentElement.style.setProperty(varName, val);
-}
-function updateGlow(val) {
-  const r = val / 100;
-  document.querySelector('.btn-primary').style.boxShadow =
-    `0 0 ${30 * r}px oklch(0.78 0.16 195 / ${0.3 * r})`;
-}
-/* persist */
-document.querySelectorAll('#tweaks-panel input').forEach(el => {
-  el.addEventListener('input', () => {
-    const vals = {};
-    document.querySelectorAll('#tweaks-panel input[type="color"]').forEach(i => {
-      vals[i.id] = i.value;
-    });
-    localStorage.setItem('tweaks', JSON.stringify(vals));
-  });
-});
-/* restore */
-try {
-  const saved = JSON.parse(localStorage.getItem('tweaks'));
-  if (saved) {
-    Object.entries(saved).forEach(([id, val]) => {
-      const el = document.getElementById(id);
-      if (el) { el.value = val; el.dispatchEvent(new Event('input')); }
-    });
-  }
-} catch(e) {}
 
 /* ───── QQ Dialog ───── */
 function showQQ() {
@@ -1250,11 +992,11 @@ function showQQ() {
   d.className = 'qq-dialog';
   d.innerHTML = `
     <div class="qq-dialog-inner">
-      <button onclick="this.closest('.qq-dialog').remove()" style="position:absolute;top:12px;right:16px;border:none;background:none;color:var(--text-dim);font-size:20px;cursor:pointer;">×</button>
-      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:8px;">CS赛事群</h3>
-      <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px;">QQ group number here — contact admin to join</p>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--cyan);">QQ群: 123456789</div>
-      <p style="font-size:12px;color:var(--text-dim);margin-top:16px;">（请替换为真实群号）</p>
+      <button onclick="this.closest('.qq-dialog').remove()" style="position:absolute;top:12px;right:16px;border:none;background:none;color:var(--text-muted);font-size:20px;cursor:pointer;">×</button>
+      <h3 style="font-weight:600;font-size:18px;margin-bottom:8px;">CS赛事群</h3>
+      <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">QQ group number here — contact admin to join</p>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--yellow);">QQ群: 123456789</div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:16px;">（请替换为真实群号）</p>
     </div>
   `;
   const style = document.createElement('style');
@@ -1262,15 +1004,15 @@ function showQQ() {
     .qq-dialog {
       position:fixed;inset:0;z-index:200;
       display:flex;align-items:center;justify-content:center;
-      background:oklch(0 0 0 / 0.6);
+      background:rgba(0,0,0,0.7);
       backdrop-filter:blur(4px);
-      animation:fadeIn 0.2s ease;
+      animation:fadeIn 0.15s ease;
     }
     .qq-dialog-inner {
-      background:var(--bg-raised);
-      border:1px solid oklch(1 0 0 / 0.1);
-      border-radius:12px;
-      padding:40px;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:36px;
       text-align:center;
       position:relative;
       max-width:400px;
