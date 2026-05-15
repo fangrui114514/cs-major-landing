@@ -555,21 +555,116 @@ body {
   color: var(--text-muted);
 }
 
+/* ───── 手机端 -> 垂直对阵列表 ───── */
+.bracket-mobile { display: none; }
+.bracket-mobile-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bracket-mobile-round {}
+.bracket-mobile-round .bm-header {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bm-matches { display: flex; flex-direction: column; gap: 6px; }
+.bm-match {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  gap: 8px;
+}
+.bm-match .bm-teams { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.bm-match .bm-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.bm-match .bm-logo {
+  width: 16px; height: 16px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.bm-match .bm-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.bm-match .bm-team.win-b .bm-score { color: var(--yellow); }
+.bm-match .bm-team.win-b { position: relative; }
+.bm-match .bm-team.win-b::before {
+  content: '';
+  position: absolute;
+  left: -12px; top: 1px; bottom: 1px;
+  width: 2px;
+  background: var(--yellow);
+  border-radius: 1px;
+}
+
 /* ───── 响应式 ───── */
 @media (max-width: 900px) {
   .hero-inner { flex-direction: column; text-align: center; }
-  .hero-right { text-align: center; }
+  .hero-right { text-align: center; width: 100%; }
+  .hero-right > div { min-width: unset !important; padding: 16px 20px !important; }
+  .hero-meta { justify-content: center; gap: 20px; }
   .hero-cta { justify-content: center; }
   .info-grid { grid-template-columns: 1fr; }
   .teams-grid { grid-template-columns: repeat(2, 1fr); }
   .b-col-matches { width: 130px; }
   .topnav-links { display: none; }
+  .schedule-section .container > div:nth-of-type(2) { grid-template-columns: 1fr !important; }
+  .schedule-section .container > div:nth-of-type(3) { grid-template-columns: 1fr !important; }
+  /* 手机端用垂直对阵表替代树状图 */
+  .bracket-wrap { display: none; }
+  .bracket-mobile { display: block; margin-top: 20px; }
 }
 @media (max-width: 500px) {
   .container { padding: 0 16px; }
-  .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .section { padding: 48px 0; }
-  .match-card { padding: 6px 12px; }
+  .section { padding: 36px 0; }
+  .match-card { padding: 8px 12px; }
+  .match-card .team { font-size: 14px; }
+  .section-title { font-size: 22px; }
+  .section-desc { font-size: 13px; }
+  .teams-grid { gap: 8px; }
+  .team-card { padding: 14px 10px; }
+  .team-name { font-size: 14px; }
+  .hero-title { font-size: 24px; }
+  .hero-meta-item .number { font-size: 17px; }
+  .topnav-inner { padding: 0 16px; }
+  .hero { padding: 28px 0; }
+  .hero-right > div { padding: 12px 16px !important; }
+  .info-detail { padding: 14px; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-detail .val { font-size: 14px; }
+  /* HLTV风格卡片手机端调整 */
+  .match-card .team { font-size: 13px; }
+  .match-card .team-logo { width: 16px; height: 16px; font-size: 8px; }
+  .match-card .team .score { font-size: 14px; min-width: 20px; }
+  .match-info .match-map { font-size: 10px; }
+  .match-info .match-status { font-size: 9px; padding: 1px 6px; }
 }
 
 /* ───── 工具类 ───── */
@@ -814,6 +909,124 @@ body {
                 <div class="b-champion">
                   <div class="icon">🏆</div>
                   <div class="label win">CHAMPION</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ═══ 手机端垂直对阵表 ═══ -->
+        <div class="bracket-mobile">
+          <div class="bracket-mobile-wrap">
+            <div class="bracket-mobile-round">
+              <div class="bm-header">WR1 · 胜者组首轮</div>
+              <div class="bm-matches">
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span>G2<span class="bm-score">16</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span>NAVI<span class="bm-score">10</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span>FAZE<span class="bm-score">9</span></div>
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span>VIT<span class="bm-score">13</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span>PV<span class="bm-score">16</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span>TS<span class="bm-score">6</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span>FLCN<span class="bm-score">11</span></div>
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span>MOUZ<span class="bm-score">16</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header">LR1 · 败者组首轮</div>
+              <div class="bm-matches">
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span>NAVI<span class="bm-score">16</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span>FAZE<span class="bm-score">12</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span>TS<span class="bm-score">9</span></div>
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span>FLCN<span class="bm-score">16</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header">WSF · 胜者组半决赛</div>
+              <div class="bm-matches">
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span>G2<span class="bm-score">2</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span>VIT<span class="bm-score">0</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span>PV<span class="bm-score">1</span></div>
+                    <div class="bm-team win-b"><span class="bm-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span>MOUZ<span class="bm-score">2</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header">LR2 · 败者组第二轮</div>
+              <div class="bm-matches">
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span>NAVI<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span>L(WSF1)<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                  </div>
+                </div>
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span>FLCN<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span>L(WSF2)<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header">WF · 胜者组决赛</div>
+              <div class="bm-matches">
+                <div class="bm-match">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span>G2<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span>MOUZ<span class="bm-score" style="color:var(--text-muted);">TBD</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header">LR3 + L-Final · 败者组</div>
+              <div class="bm-matches">
+                <div class="bm-match" style="opacity:0.6;">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span>LR2 W1<span class="bm-score" style="color:var(--text-muted);">—</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span>LR2 W2<span class="bm-score" style="color:var(--text-muted);">—</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bracket-mobile-round">
+              <div class="bm-header" style="color:var(--yellow);">🏆 Grand Final · 总决赛</div>
+              <div class="bm-matches">
+                <div class="bm-match" style="border-color:rgba(255,184,0,0.15);">
+                  <div class="bm-teams">
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span><span style="color:var(--yellow);">WF Winner</span><span class="bm-score" style="color:var(--text-muted);">—</span></div>
+                    <div class="bm-team"><span class="bm-logo" style="display:none;"></span><span style="color:var(--yellow);">LR Winner</span><span class="bm-score" style="color:var(--text-muted);">—</span></div>
+                  </div>
                 </div>
               </div>
             </div>
