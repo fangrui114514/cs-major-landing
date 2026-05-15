@@ -320,11 +320,11 @@ body {
   font-weight: 600;
 }
 
-/* ───── 对阵表 ───── */
+/* ───── HLTV 风格对阵表 ───── */
 .bracket-section { margin-top: 24px; }
 .bracket-wrap {
   overflow-x: auto;
-  padding: 8px 0 12px;
+  padding: 4px 0 12px;
   -webkit-overflow-scrolling: touch;
 }
 .bracket-flow {
@@ -342,11 +342,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4px 0 2px;
+  padding: 0 2px 0 0;
 }
+
+/* bracket columns */
 .b-col { display: flex; flex-direction: column; flex-shrink: 0; position: relative; }
-.b-col-matches { width: 145px; padding: 0 4px; }
-.b-col-conn { width: 24px; position: relative; }
+.b-col-matches { width: 148px; padding: 0 3px; }
+.b-col-conn { width: 22px; position: relative; }
 .b-col-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -354,78 +356,123 @@ body {
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
-  padding-bottom: 4px;
+  padding-bottom: 3px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  height: 22px;
+  height: 20px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   margin-bottom: 6px;
 }
+
+/* HLTV style match card */
+.b-match {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: background 0.12s;
+  cursor: default;
+}
+.b-match:hover { background: var(--bg-hover); }
 .b-team {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   padding: 4px 10px;
-  background: var(--bg-card);
   font-size: 11px;
   font-weight: 600;
   height: 26px;
-  border-left: 2px solid transparent;
   transition: background 0.12s;
   white-space: nowrap;
-  border: 1px solid var(--border);
+  position: relative;
 }
-.b-match:hover .b-team { background: var(--bg-hover); }
-.b-match .b-team:first-child { margin-bottom: 1px; }
+.b-team:first-child { border-bottom: 1px solid var(--border); }
+.b-team .b-logo {
+  width: 16px; height: 16px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.b-team .b-name { flex: 1; color: var(--text-dim); }
 .b-team .b-score {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
   color: var(--text-muted);
 }
-.b-team.win-b { border-left-color: var(--yellow); }
-.b-team.win-b .b-score { color: var(--green); font-weight: 700; }
+.b-team.win-b { background: rgba(255,184,0,0.04); }
+.b-team.win-b::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--yellow);
+}
+.b-team.win-b .b-name { color: var(--text); }
+.b-team.win-b .b-score { color: var(--yellow); }
 
-/* champion */
+/* match placeholder */
+.b-match-placeholder {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.015);
+}
+
+/* champion card */
 .b-champion {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255,184,0,0.06);
-  border: 1px solid rgba(255,184,0,0.2);
-  border-radius: 6px;
-  padding: 14px 12px;
+  background: rgba(255,184,0,0.04);
+  border: 1px solid rgba(255,184,0,0.15);
+  border-radius: var(--radius);
+  padding: 12px 10px;
   text-align: center;
-  min-width: 80px;
+  min-width: 72px;
 }
-.b-champion .icon { font-size: 18px; margin-bottom: 4px; }
+.b-champion .icon { font-size: 16px; margin-bottom: 3px; }
 .b-champion .label {
   font-family: 'Inter', sans-serif;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
+  color: var(--text-muted);
 }
-.b-champion .label.win { color: var(--yellow); font-size: 12px; letter-spacing: 3px; }
+.b-champion .label.win { color: var(--yellow); font-size: 11px; letter-spacing: 3px; }
 
-/* connector lines */
+/* connector lines - thinner, subtler */
 .conn-spine { position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);pointer-events:none; }
 .conn-group { position:relative; }
-.conn-in { position:absolute;left:0;width:50%;height:2px;background:var(--yellow-dim); }
+.conn-in { position:absolute;left:0;width:50%;height:1px;background:rgba(255,184,0,0.2); }
 .conn-in.top { top:0; }
 .conn-in.bot { bottom:0; }
-.conn-in.pink { background: rgba(255,255,255,0.1); }
-.conn-v { position:absolute;left:50%;width:2px;background:var(--yellow-dim); }
+.conn-in.pink { background:rgba(255,255,255,0.06); }
+.conn-v { position:absolute;left:50%;width:1px;background:rgba(255,184,0,0.2); }
 .conn-v.merge-dn { top:0;bottom:50%; }
 .conn-v.merge-up { top:50%;bottom:0; }
-.conn-v.pink { background: rgba(255,255,255,0.1); }
-.conn-out { position:absolute;right:0;width:50%;height:2px;background:var(--yellow-dim);top:50%; }
-.conn-out.pink { background: rgba(255,255,255,0.1); }
-.conn-left { position:absolute;left:0;width:100%;height:2px;top:50%;background:rgba(255,255,255,0.1); }
+.conn-v.pink { background:rgba(255,255,255,0.06); }
+.conn-out { position:absolute;right:0;width:50%;height:1px;background:rgba(255,184,0,0.2);top:50%; }
+.conn-out.pink { background:rgba(255,255,255,0.06); }
+.conn-left { position:absolute;left:0;width:100%;height:1px;top:50%;background:rgba(255,255,255,0.06); }
 
-.bracket-header { display:flex;align-items:center;gap:12px;margin-bottom:16px; }
+.bracket-header { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
 .bracket-tag {
   font-family:'JetBrains Mono',monospace;
   font-size:9px;letter-spacing:1.5px;
@@ -433,7 +480,7 @@ body {
   padding:2px 10px;
   border-radius:2px;
 }
-.bracket-tag.win { color:var(--yellow); border:1px solid rgba(255,184,0,0.25); background:rgba(255,184,0,0.06); }
+.bracket-tag.win { color:var(--yellow); border:1px solid rgba(255,184,0,0.25); background:rgba(255,184,0,0.04); }
 .bracket-tag.lose { color:var(--text-dim); border:1px solid var(--border); }
 
 /* ───── 战队列表 ───── */
@@ -655,20 +702,20 @@ body {
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WR1</div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team win-b"><span>G2</span><span class="b-score">16</span></div>
-                  <div class="b-team"><span>NAVI</span><span class="b-score">10</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span><span class="b-name">G2</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span><span class="b-name">NAVI</span><span class="b-score">10</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team"><span>FAZE</span><span class="b-score">9</span></div>
-                  <div class="b-team win-b"><span>VIT</span><span class="b-score">13</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span><span class="b-name">FAZE</span><span class="b-score">9</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span><span class="b-name">VIT</span><span class="b-score">13</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team win-b"><span>PV</span><span class="b-score">16</span></div>
-                  <div class="b-team"><span>TS</span><span class="b-score">6</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span><span class="b-name">PV</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span><span class="b-name">TS</span><span class="b-score">6</span></div>
                 </div>
                 <div class="b-match" style="flex:1;">
-                  <div class="b-team"><span>FLCN</span><span class="b-score">11</span></div>
-                  <div class="b-team win-b"><span>MOUZ</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span><span class="b-name">FLCN</span><span class="b-score">11</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span><span class="b-name">MOUZ</span><span class="b-score">16</span></div>
                 </div>
               </div>
               <div class="b-col b-col-conn">
@@ -678,8 +725,14 @@ body {
               </div>
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WSF</div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>G2</span></div><div class="b-team"><span>VIT</span></div></div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>PV</span></div><div class="b-team"><span>MOUZ</span></div></div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span><span class="b-name">G2</span><span class="b-score">2</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">V</span><span class="b-name">VIT</span><span class="b-score">0</span></div>
+                </div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#9B59B6,#8E44AD);">P</span><span class="b-name">PV</span><span class="b-score">1</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span><span class="b-name">MOUZ</span><span class="b-score">2</span></div>
+                </div>
               </div>
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
@@ -687,19 +740,28 @@ body {
               </div>
               <div class="b-col b-col-matches">
                 <div class="b-col-label">WF</div>
-                <div class="b-match" style="flex:4;"><div class="b-team"><span>WSF1 Winner</span></div><div class="b-team"><span>WSF2 Winner</span></div></div>
+                <div class="b-match" style="flex:4;">
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#F1C40F,#E67E22);">G2</span><span class="b-name">G2</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#E91E63,#C2185B);">M</span><span class="b-name">MOUZ</span></div>
+                </div>
               </div>
               <div class="b-col b-col-conn" style="width:20px;">
                 <div class="conn-spine" style="height:50%;"></div>
-                <div class="conn-group" style="flex:4;"><div class="conn-out" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;background:var(--yellow-dim);"></div></div>
+                <div class="conn-group" style="flex:4;"><div class="conn-out" style="position:absolute;left:0;right:0;width:auto;top:50%;height:1px;background:rgba(255,184,0,0.2);"></div></div>
               </div>
             </div>
             <!-- LOSERS -->
             <div class="bracket-row lose">
               <div class="b-col b-col-matches">
                 <div class="b-col-label" style="color:var(--text-muted);">LR1</div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>NAVI</span><span class="b-score">16</span></div><div class="b-team"><span class="lose">FAZE</span><span class="b-score">12</span></div></div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>TS</span><span class="b-score">9</span></div><div class="b-team"><span>FLCN</span><span class="b-score">16</span></div></div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span><span class="b-name">NAVI</span><span class="b-score">16</span></div>
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">F</span><span class="b-name">FAZE</span><span class="b-score">12</span></div>
+                </div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#1ABC9C,#16A085);">T</span><span class="b-name">TS</span><span class="b-score">9</span></div>
+                  <div class="b-team win-b"><span class="b-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span><span class="b-name">FLCN</span><span class="b-score">16</span></div>
+                </div>
               </div>
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
@@ -708,8 +770,14 @@ body {
               </div>
               <div class="b-col b-col-matches">
                 <div class="b-col-label" style="color:var(--text-muted);">LR2</div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>NAVI</span></div><div class="b-team"><span>L(WSF1)</span></div></div>
-                <div class="b-match" style="flex:2;"><div class="b-team"><span>FLCN</span></div><div class="b-team"><span>L(WSF2)</span></div></div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#3498DB,#2980B9);">N</span><span class="b-name">NAVI</span></div>
+                  <div class="b-team"><span class="b-logo" style="display:none;"></span><span class="b-name" style="color:var(--text-muted);">L(WSF1)</span></div>
+                </div>
+                <div class="b-match" style="flex:2;">
+                  <div class="b-team"><span class="b-logo" style="background:linear-gradient(135deg,#F39C12,#D35400);">F</span><span class="b-name">FLCN</span></div>
+                  <div class="b-team"><span class="b-logo" style="display:none;"></span><span class="b-name" style="color:var(--text-muted);">L(WSF2)</span></div>
+                </div>
               </div>
               <div class="b-col b-col-conn">
                 <div class="conn-spine"></div>
@@ -717,18 +785,21 @@ body {
               </div>
               <div class="b-col b-col-matches">
                 <div class="b-col-label" style="color:var(--text-muted);">LR3</div>
-                <div class="b-match" style="flex:4;"><div class="b-team"><span>LR2 W1</span></div><div class="b-team"><span>LR2 W2</span></div></div>
+                <div class="b-match" style="flex:4;">
+                  <div class="b-team"><span class="b-logo" style="display:none;"></span><span class="b-name" style="color:var(--text-muted);">LR2 W1</span></div>
+                  <div class="b-team"><span class="b-logo" style="display:none;"></span><span class="b-name" style="color:var(--text-muted);">LR2 W2</span></div>
+                </div>
               </div>
               <div class="b-col b-col-conn" style="width:20px;">
                 <div class="conn-spine" style="height:50%;"></div>
-                <div class="conn-group" style="flex:4;"><div class="conn-out pink" style="position:absolute;left:0;right:0;width:auto;top:50%;height:2px;"></div></div>
+                <div class="conn-group" style="flex:4;"><div class="conn-out pink" style="position:absolute;left:0;right:0;width:auto;top:50%;height:1px;"></div></div>
               </div>
-              <div class="b-col" style="width:80px;">
+              <div class="b-col" style="width:76px;">
                 <div class="b-col-label" style="color:var(--text-muted);">L-Final</div>
                 <div style="flex:4;display:flex;flex-direction:column;align-items:center;justify-content:center;">
                   <div class="b-champion" style="border-color:var(--border);">
-                    <div class="label" style="font-size:9px;color:var(--text-muted);">LR3 Winner</div>
-                    <div class="label" style="font-size:8px;color:var(--text-muted);">vs L(WF)</div>
+                    <div class="label">LR3 Winner</div>
+                    <div class="label" style="font-size:8px;">vs L(WF)</div>
                   </div>
                 </div>
               </div>
