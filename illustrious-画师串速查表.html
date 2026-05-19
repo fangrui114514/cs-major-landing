@@ -16,6 +16,7 @@
     --yellow: #fbbf24;
     --green: #34d399;
     --red: #f87171;
+    --pink: #f472b6;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -27,7 +28,6 @@
   }
   .container { max-width: 1100px; margin: 0 auto; }
 
-  /* Header */
   header {
     text-align: center;
     padding: 40px 0 30px;
@@ -53,7 +53,6 @@
     border: 1px solid var(--border);
   }
 
-  /* Category Section */
   .category { margin-bottom: 40px; }
   .category h2 {
     font-size: 1.3rem;
@@ -79,14 +78,12 @@
     margin-bottom: 14px;
   }
 
-  /* Artist Grid */
   .artist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 12px;
   }
 
-  /* Artist Card */
   .artist-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -128,7 +125,6 @@
     border: 1px solid rgba(192, 132, 252, 0.15);
   }
 
-  /* Combination Table */
   .combo-table {
     width: 100%;
     border-collapse: collapse;
@@ -155,7 +151,6 @@
     word-break: break-all;
   }
 
-  /* Usage Section */
   .usage-box {
     background: var(--card);
     border: 1px solid var(--border);
@@ -188,7 +183,6 @@
     margin-bottom: 4px;
   }
 
-  /* Tag Search */
   .tag-bar {
     display: flex;
     flex-wrap: wrap;
@@ -232,6 +226,14 @@
     .artist-grid { grid-template-columns: 1fr; }
     .combo-table th, .combo-table td { padding: 8px 10px; font-size: 0.8rem; }
   }
+
+  /* Stats bar */
+  .stats {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
 </style>
 </head>
 <body>
@@ -243,7 +245,6 @@
   <div class="note">提示：在 prompt 中用 <code>artist:name</code> 或 <code>artist:name1, artist:name2</code> 组合多个画师</div>
 </header>
 
-<!-- Usage -->
 <div class="usage-box">
   <h3>使用方式</h3>
   <div class="label">单画师 example:</div>
@@ -254,477 +255,567 @@
   <code>masterpiece, best quality, very aesthetic, absurdres, 1girl, artist:momorin, artist:ntoskr, artist:watanabeakio, ...</code>
   <div class="label">Illustrious 前置质量词推荐:</div>
   <code>masterpiece, best quality, very aesthetic, absurdres,
-  (提示: 部分模型变体可能需要调整质量词顺序或去掉 very aesthetic )</code>
+  (提示: 部分模型变体可能需要调整质量词顺序或去掉 very aesthetic)</code>
 </div>
 
-<!-- 快捷筛选 -->
 <div class="tag-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">全部</button>
   <button class="filter-btn" data-filter="cel">赛璐璐</button>
   <button class="filter-btn" data-filter="painterly">厚涂</button>
   <button class="filter-btn" data-filter="watercolor">淡彩/水彩</button>
-  <button class="filter-btn" data-filter="realistic">写实/半写实</button>
-  <button class="filter-btn" data-filter="atmosphere">氛围/背景</button>
+  <button class="filter-btn" data-filter="realistic">写实</button>
+  <button class="filter-btn" data-filter="atmosphere">氛围/逆光</button>
   <button class="filter-btn" data-filter="unique">独特画风</button>
+  <button class="filter-btn" data-filter="fleshy">肉感/丰腴</button>
 </div>
 
-<!-- ===================== 赛璐璐/动画风 ===================== -->
+<!-- ===================== 赛璐璐 / 动画风 ===================== -->
 <div class="category" data-category="cel">
-<h2>赛璐璐 / 动画风 <span class="count">15+</span></h2>
-<div class="category-desc">线条干净、色彩明快、平涂为主的经典动画风格，适合角色立绘和日常场景</div>
+<h2>赛璐璐 / 动画风 <span class="count">37+</span></h2>
+<div class="category-desc">线条干净、色彩明快的经典动画风格</div>
 <div class="artist-grid">
-
-  <div class="artist-card">
-    <div class="artist-name">ask (askzy) <span class="tag">★ 画师串必备</span></div>
-    <div class="artist-style">柔和赛璐璐，细腻光影，少女角色</div>
-    <div class="artist-tags"><span>角色设计</span><span>赛璐璐</span><span>光影柔和</span></div>
+  <div class="artist-card" data-categories="atmosphere cel">
+    <div class="artist-name">torino aqua</div>
+    <div class="artist-style">极致逆光、丁达尔空气感、通透、细碎光斑、高明度高纯度、粉嫩肤色、大景深广角透视、纤细少女、治愈梦幻。</div>
+    <div class="artist-tags"><span>氛围</span><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">ntoskr <span class="tag">★ 画师串必备</span></div>
-    <div class="artist-style">高质量赛璐璐，锐利线条，高完成度</div>
-    <div class="artist-tags"><span>赛璐璐</span><span>高完成度</span><span>角色</span></div>
+  <div class="artist-card" data-categories="fleshy cel">
+    <div class="artist-name">houraku</div>
+    <div class="artist-style">果冻通透肉感、汗水油脂湿润光泽、糖果色、柔焦、肢体挤压勒痕、粉色关节、红晕水光瞳、软糯弹性。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">ntoskr, ask (askzy)</div>
-    <div class="artist-style">经典画师串组合——取 ntoskr 的锐利 + ask 的柔和光影</div>
-    <div class="artist-tags"><span>经典组合</span><span>全能</span></div>
+  <div class="artist-card" data-categories="cel painterly atmosphere">
+    <div class="artist-name">scottie (phantom2)</div>
+    <div class="artist-style">半厚涂赛璐璐、水波焦散、强反光、紫粉色阴影、湿身诱惑、体积肉感、深邃精致瞳、唯美湿润梦幻。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>厚涂</span><span>氛围</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">memeno <span class="tag">★ 推荐</span></div>
-    <div class="artist-style">鲜艳赛璐璐，动态构图，表情生动</div>
-    <div class="artist-tags"><span>赛璐璐</span><span>动态</span><span>表情</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">chigusa minori</div>
+    <div class="artist-style">莫兰迪色背景、面部高饱和红晕、湿润含羞、生活化POV、体温感动态、发丝层次、软萌色气。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">memeno, ntoskr</div>
-    <div class="artist-style">动态感 + 高质量线条，适合动作/战斗场景</div>
-    <div class="artist-tags"><span>动作场景</span><span>赛璐璐</span></div>
+  <div class="artist-card" data-categories="watercolor cel">
+    <div class="artist-name">akipeko</div>
+    <div class="artist-style">软光生活流、半透明肤感、折射水分、写实骨骼肌肉、细密随机碎发、严谨褶皱、日常瞬时张力。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">watanabeakio</div>
-    <div class="artist-style">经典动画风，角色表情细腻，柔美线条</div>
-    <div class="artist-tags"><span>经典动画</span><span>表情</span><span>柔美</span></div>
+  <div class="artist-card" data-categories="fleshy cel">
+    <div class="artist-name">tsuchikure</div>
+    <div class="artist-style">极致润感、巨瞳多层虹膜、粉色渐变腮红、白点高光、圆润挤压、互动POV、平滑无笔触、高精度配饰。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">momorin</div>
-    <div class="artist-style">明亮色块，可爱系角色，Q版与正常比例皆可</div>
-    <div class="artist-tags"><span>可爱</span><span>明亮</span><span>Q版</span></div>
+  <div class="artist-card" data-categories="cel atmosphere">
+    <div class="artist-name">kantoku</div>
+    <div class="artist-style">赛璐璐进阶、白衬衫水渍半透明、果冻感、裙摆提拉、窥视视角、自然节令背景、关节红晕。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">motteke</div>
-    <div class="artist-style">清爽赛璐璐，制服/校园题材出色</div>
-    <div class="artist-tags"><span>校园</span><span>制服</span><span>清爽</span></div>
+  <div class="artist-card" data-categories="cel atmosphere">
+    <div class="artist-name">anmi</div>
+    <div class="artist-style">唯美轻盈、逆光丁达尔、水润软糯肉感、薄纱蕾丝材质、环境色反光、俯仰临场感、清爽治愈。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">yoshikawa</div>
-    <div class="artist-style">柔和线条，温暖色调，日常系</div>
-    <div class="artist-tags"><span>日常</span><span>温暖</span><span>柔和</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">hiten (hitenkei)</div>
+    <div class="artist-style">商业赛璐璐、冷暖邻近色、水下折射、粉润白皙肤色、精细饰品褶皱、浪漫幻想、高透明度。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">keta</div>
-    <div class="artist-style">锐利赛璐璐，高对比度，视觉冲击强</div>
-    <div class="artist-tags"><span>高对比</span><span>锐利</span><span>视觉系</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">40hara</div>
+    <div class="artist-style">极致幼化建模、短肢软糯、边缘光散景、发丝半透明、提裙蹲姿、窥视暗示、清透空气感。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">sho (sho lwlw)</div>
-    <div class="artist-style">现代动画风，透明感上色，少女角色</div>
-    <div class="artist-tags"><span>透明感</span><span>少女</span><span>现代动画</span></div>
+  <div class="artist-card" data-categories="cel atmosphere fleshy">
+    <div class="artist-name">shiratama (shiratamaco)</div>
+    <div class="artist-style">极致幼态Loli、马卡龙色、婴儿肥小圆嘴、碎星花瓣、浅色极细线、甜度极高、梦幻少女体香。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">fuusuke</div>
-    <div class="artist-style">爽快动作场景，动态线条，战斗系</div>
-    <div class="artist-tags"><span>战斗</span><span>动态</span><span>动作</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">tiv</div>
+    <div class="artist-style">青蓝樱粉对比、多色阴影、泛光虚化、带色纤细线稿、透明介质、空间纵深、灵动叙事。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-</div>
-</div>
-
-<!-- ===================== 厚涂 ===================== -->
-<div class="category" data-category="painterly">
-<h2>厚涂 / 油画风 <span class="count">10+</span></h2>
-<div class="category-desc">笔触明显、光影丰富、立体感强的厚涂风格，适合肖像、奇幻、氛围感强的画面</div>
-<div class="artist-grid">
-
-  <div class="artist-card">
-    <div class="artist-name">wlop <span class="tag">★ 推荐</span></div>
-    <div class="artist-style">标志性厚涂，光影氛围极强，意境感</div>
-    <div class="artist-tags"><span>厚涂</span><span>氛围</span><span>意境</span><span>光影</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">misaki kurehito</div>
+    <div class="artist-style">华丽通透、高饱和暖色调、宝石瞳、红润肉感、发梢半透明、液体皮革高反光、粒子特效、极致精致。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">krenz <span class="tag">★ 推荐</span></div>
-    <div class="artist-style">光影大师，色彩构成强，厚涂半厚涂</div>
-    <div class="artist-tags"><span>厚涂</span><span>光影</span><span>色彩构成</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">tsunako</div>
+    <div class="artist-style">包子脸、宝石瞳碎星高光、高透明冷暖邻近色、绸缎蕾丝质感、繁复褶皱、幻想美学。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">sakimi chan</div>
-    <div class="artist-style">半厚涂，华丽细节，女性角色擅长</div>
-    <div class="artist-tags"><span>半厚涂</span><span>华丽</span><span>女性角色</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">lack</div>
-    <div class="artist-style">厚涂风格，Fate系质感，华丽光影</div>
-    <div class="artist-tags"><span>Fate系</span><span>华丽</span><span>厚涂</span></div>
-  </div>
-
-  <div class="artist-card">
+  <div class="artist-card" data-categories="unique cel">
     <div class="artist-name">mika pikazo</div>
-    <div class="artist-style">色彩爆炸，霓虹感，年轻活力</div>
-    <div class="artist-tags"><span>色彩强烈</span><span>霓虹</span><span>活力</span></div>
+    <div class="artist-style">几何星芒瞳、荧光撞色、赛博霓虹、硬朗几何切面、装饰主义、高密度视觉冲击、现代波普。</div>
+    <div class="artist-tags"><span>独特画风</span><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">alex negrea</div>
-    <div class="artist-style">欧美厚涂，写实光影，奇幻题材</div>
-    <div class="artist-tags"><span>欧美</span><span>写实光影</span><span>奇幻</span></div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">miaruri</div>
+    <div class="artist-style">萌系赛璐璐、糖果色、色彩偏移纤细线、高通透果冻瞳、线条腮红、弹性肉感、高饱边缘光带、装饰性漂浮物、华丽甜美、高完成度。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">neco</div>
-    <div class="artist-style">厚涂身体+赛璐璐脸的混合风格，角色辨识度高</div>
-    <div class="artist-tags"><span>混合风格</span><span>角色设计</span><span>辨识度高</span></div>
+  <div class="artist-card" data-categories="cel atmosphere fleshy">
+    <div class="artist-name">aoha (aohasora)</div>
+    <div class="artist-style">糖果色调、色彩溢出空气感、碎钻叠色华丽瞳、软萌腰腹肉感、粉嫩关节晕染、深色彩线、碎发透明末梢、丝滑织物表现、轻奢偶像风、画面洁净度。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">reoen (reoenl)</div>
-    <div class="artist-style">半厚涂，柔美光影，唯美系</div>
-    <div class="artist-tags"><span>唯美</span><span>半厚涂</span><span>柔美</span></div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">dokimaru</div>
+    <div class="artist-style">甜美商业向、极幼态大眼、沙漏型肉感、高饱清新色、粉白红晕、油亮大块高光、利落彩色线稿、繁复蕾丝蝴蝶结、精致娃娃感、强视觉捕捉。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">hiten</div>
-    <div class="artist-style">柔和半厚涂，笔触细腻，氛围安静</div>
-    <div class="artist-tags"><span>安静氛围</span><span>细腻</span><span>半厚涂</span></div>
+  <div class="artist-card" data-categories="cel atmosphere">
+    <div class="artist-name">aoe ui</div>
+    <div class="artist-style">进阶赛璐璐，强逆光，丁达尔效应，边缘高光，玻璃通透感，高饱和，宝石瞳，水光肌，湿身，液体折射，幼态圆脸，肉感躯干，生理性燥热。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">pinozen</div>
-    <div class="artist-style">透明感厚涂，梦幻光影，少女</div>
-    <div class="artist-tags"><span>透明感</span><span>梦幻</span><span>少女</span></div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">chiu538</div>
+    <div class="artist-style">清新萌系，幼态丰满，圆脸短下巴，碎钻瞳，极强粉红红晕，高明度逆光，空气感溢光，色偏移线稿，大透视视角，果冻肌，金属漆光，半透明材质。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
   </div>
-
+  <div class="artist-card" data-categories="fleshy cel">
+    <div class="artist-name">sironora</div>
+    <div class="artist-style">极幼态（Lolicon），剔透干净，高饱和，巨大宝石眼，重度红晕，羞涩，纤细骨架，局部曲线（侧腰腋下腹部），生理性挤压褶皱，白里透红，跨色域渐变，动态捕捉。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>赛璐璐</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">ca paria</div>
+    <div class="artist-style">幼态少女感，果冻眼，多层瞳孔，紧凑脸型，高透明皮肤，关节肉感，环境光影响线稿，写实褶皱逻辑，体积感，校园运动/水着。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">kiramarukou</div>
+    <div class="artist-style">顶级赛璐璐、极光色、高亮饱和。皮肤透明感、逆光光斑、丁达尔效应。湿气肉感、水滴汗渍、勒痕金属、生理诱惑。强透视、高动态、腰臀曲线、画面饱满。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel atmosphere">
+    <div class="artist-name">sky cappuccino</div>
+    <div class="artist-style">精细赛璐璐、轻厚涂、强弥散逆光。低饱和底色、暖皮冷景。皮肤湿润、半透衣物、丝滑发质。大眼幼态、眼影红晕、清纯色气。纤细线稿、后期柔焦、梦幻感。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel watercolor">
+    <div class="artist-name">weri</div>
+    <div class="artist-style">萌系、高透明、梦幻感。叠色宝石瞳、超大眼、幼态脸、肌肤光泽。极细发丝、空气感、逆光轮廓。蓝紫阴影、环境补光。强景深、花卉光斑装饰、丝绸液体质感。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>淡彩/水彩</span></div>
+  </div>
+  <div class="artist-card" data-categories="painterly cel">
+    <div class="artist-name">kanda done</div>
+    <div class="artist-style">高明度冷灰调、空气感。繁复宝石瞳、淡粉眼妆。纤细线条、关节红晕、柔嫩皮肤。侧逆光、强明暗对比。果冻釉面质感、锐利高光、反光面细腻。萌系半厚涂、华美精致。</div>
+    <div class="artist-tags"><span>厚涂</span><span>赛璐璐</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">shironekokfp</div>
+    <div class="artist-style">进阶赛璐璐、重肉感、萌系色气。高饱和、高通透、冷暖对比（紫/蓝）、红润。纤细S曲线、勒痕、软肉、结构扎实。宝石瞳、鼻尖高光、生动互动感。边缘光、半透明材质。  ## aritst:otonoha moe 高明度背光、发光感、通透。幼态...</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy cel">
+    <div class="artist-name">thalia</div>
+    <div class="artist-style">互动风、轻度工口。幼脸肉身、高饱和蓝紫瞳。粉白肤、粉红关节、大腿腹部高光、软糯。UI界面、弹幕、自拍、猫耳、丝带、黑丝。下垂眼、微醺、暧昧性暗示。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>赛璐璐</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel watercolor fleshy">
+    <div class="artist-name">arata (xin)</div>
+    <div class="artist-style">少女幼女、湿身、暗示性。大眼、浓睫、圆脸、微张口。幼态、圆润肢体、腹腿线条。水彩风、湿润汗珠、大高光、粉紫平滑阴影。蕾丝、衣褶。中近景、仰俯视角。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>淡彩/水彩</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">abpart</div>
+    <div class="artist-style">糖果色、粉白紫、荧光感。沙漏型、胯宽肉腿、衣物勒痕。萌系幼态、短脸、娇羞反差。油亮、乳胶质感、半透明、平滑光影。纤细深色线稿、色线软化。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel painterly">
+    <div class="artist-name">myowa</div>
+    <div class="artist-style">赛璐璐厚涂融合。巨眼、几何星光瞳、水润、楚楚动人。汗珠、流汗、丝滑发丝。华丽复杂、蕾丝、薄纱、黑纱、宝石、中国结。强逆光、边缘光晕、彩虹色散高光。梦幻虚化、叙事感。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>厚涂</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel realistic fleshy">
+    <div class="artist-name">re inverse // 这个对于noobai无效，未被收录</div>
+    <div class="artist-style">现代萌系、高对比、水润感。高饱暖粉、冷暖渐变、光晕。幼态丰腴、细肢厚躯、弱骨感。螺旋瞳、多重高光、汗渍、塑料晶莹感。湿热互动视角、微色。皮肤粉晕、写实蕾丝、高反光。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>写实</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel watercolor">
+    <div class="artist-name">arl</div>
+    <div class="artist-style">华丽精细萌系。高明度马卡龙色、粉紫影、冷蓝光。强溢光、空灵逆光、圆润细腻。幼态多色渐变瞳、关节粉晕。纤细流线发束、密集褶皱蕾丝。梦幻甜美治愈。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>淡彩/水彩</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">amaki daisuke</div>
+    <div class="artist-style">赛博糖果色、重度刻画。心形高光、深粉下眼影。点状高光、油润感、腹肌勒肉。纤细色线、柔和边缘、碎化发丝。高饱环境光、强光影对比。微醺、幼面熟身。近景俯视。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">matanonki</div>
+    <div class="artist-style">极精细萌系、肉感幼态。短头身、腰腹腿软糯、圆润关节。华丽多色瞳、大面积红晕、迷离泪眼。皮肤透光、油脂汗水高光、强冷暖对比。半透明织物、繁复褶皱。逆光轮廓、镜头光晕、高饱梦幻。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel">
+    <div class="artist-name">miwabe sakura</div>
+    <div class="artist-style">进阶赛璐珞、高发光感。清透蓝紫调、强冷暖对比。宝石碎钻瞳、灵动微醺。极高皮肤透明度、丝绸水渍、塑料薄纱。背景高填充、花卉粒子点缀。腰臀曲线、组织压迹、色气美感。</div>
+    <div class="artist-tags"><span>赛璐璐</span></div>
+  </div>
+  <div class="artist-card" data-categories="cel fleshy">
+    <div class="artist-name">nijihashi sora</div>
+    <div class="artist-style">阳光色气、梦幻商插。俏皮幼态、超现实肉感。多色高亮瞳、轻盈发丝。高明度扩散、补色碰撞、高反光水渍。弱化线稿、胶片通透感、精细材质。大透视、强动态。纯真诱惑、沉浸互动。</div>
+    <div class="artist-tags"><span>赛璐璐</span><span>肉感/色气</span></div>
+  </div>
 </div>
 </div>
 
-<!-- ===================== 淡彩/水彩 ===================== -->
-<div class="category" data-category="watercolor">
-<h2>淡彩 / 水彩风 <span class="count">8+</span></h2>
-<div class="category-desc">清淡通透、留白多、边缘柔和的轻涂风格，适合治愈、日常、浪漫题材</div>
+<!-- ===================== 厚涂 / 半厚涂 ===================== -->
+<div class="category" data-category="painterly">
+<h2>厚涂 / 半厚涂 <span class="count">15+</span></h2>
+<div class="category-desc">笔触明显、光影丰富、立体感强的厚涂风格</div>
 <div class="artist-grid">
-
-  <div class="artist-card">
-    <div class="artist-name">feima (feimayi)</div>
-    <div class="artist-style">淡彩赛璐璐，轻薄透明感</div>
-    <div class="artist-tags"><span>淡彩</span><span>透明感</span><span>轻薄</span></div>
+  <div class="artist-card" data-categories="painterly atmosphere">
+    <div class="artist-name">atdan</div>
+    <div class="artist-style">冷暖对比、环境色阴影、强逆光Bokeh、几何高光瞳、渐变发梢、水体丝绸金属质感、碎片化装饰、漂浮动态、华丽商业感。</div>
+    <div class="artist-tags"><span>厚涂</span><span>氛围</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">rella (tyrell)</div>
-    <div class="artist-style">水彩风格，梦幻少女，柔和边缘</div>
-    <div class="artist-tags"><span>水彩</span><span>梦幻</span><span>少女</span></div>
+  <div class="artist-card" data-categories="fleshy painterly">
+    <div class="artist-name">swd3e2</div>
+    <div class="artist-style">极致盆骨大腿围、挤压肉感、韩系半厚涂、冷色边缘光、银白发、紫黑白冷调、机甲蕾丝、仰视神圣感。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>厚涂</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">loundraw</div>
-    <div class="artist-style">透明感剧场风，青春光线，电影感</div>
-    <div class="artist-tags"><span>透明感</span><span>剧场风</span><span>青春</span><span>电影感</span></div>
+  <div class="artist-card" data-categories="atmosphere painterly">
+    <div class="artist-name">asteroid ill</div>
+    <div class="artist-style">极深远景纵深、高俯仰角、微型个体、强丁达尔光簇、冷灰蓝绿空气感、废墟美学、厚涂肌理、神圣感。</div>
+    <div class="artist-tags"><span>氛围</span><span>厚涂</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">hakusai</div>
-    <div class="artist-style">薄涂水彩风，留白多，诗意感</div>
-    <div class="artist-tags"><span>薄涂</span><span>水彩</span><span>诗意</span></div>
+  <div class="artist-card" data-categories="painterly">
+    <div class="artist-name">betanonbeet</div>
+    <div class="artist-style">厚涂写实肌理、次表面散射温暖光、爱心多边形发光瞳、关节红润、破碎神圣感、柔光丁达尔。</div>
+    <div class="artist-tags"><span>厚涂</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">mochizukikei</div>
-    <div class="artist-style">柔和水彩，猫系角色，温暖日常</div>
-    <div class="artist-tags"><span>水彩</span><span>温暖</span><span>日常</span></div>
+  <div class="artist-card" data-categories="painterly fleshy">
+    <div class="artist-name">hidulume</div>
+    <div class="artist-style">半厚涂强光影、冷暖温差、湿润肉感、汗水红晕、百叶窗切光、边缘锐利、私密慵懒色气。</div>
+    <div class="artist-tags"><span>厚涂</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">mogumo</div>
-    <div class="artist-style">淡色系，软萌风格，治愈感</div>
-    <div class="artist-tags"><span>淡色</span><span>软萌</span><span>治愈</span></div>
+  <div class="artist-card" data-categories="painterly watercolor">
+    <div class="artist-name">fly (marguerite)</div>
+    <div class="artist-style">半厚涂水彩、夏日阵雨、高反差自然光、氧气感叠色、湿润材质反差、手工颗粒感、青春忧郁。</div>
+    <div class="artist-tags"><span>厚涂</span><span>淡彩/水彩</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">fukahire (foxcorner)</div>
-    <div class="artist-style">淡彩童话风，温暖柔和</div>
-    <div class="artist-tags"><span>童话风</span><span>温暖</span><span>柔和</span></div>
+  <div class="artist-card" data-categories="painterly unique">
+    <div class="artist-name">yuumei</div>
+    <div class="artist-style">赛博幻想、强对比发光特效、靛青暖金碰撞、时空错位、流线型动感、孤独忧郁叙事、植物蔓生。</div>
+    <div class="artist-tags"><span>厚涂</span><span>独特画风</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">matsuru</div>
-    <div class="artist-style">轻淡透明感，清爽夏日风格</div>
-    <div class="artist-tags"><span>清爽</span><span>透明感</span><span>夏日</span></div>
+  <div class="artist-card" data-categories="painterly">
+    <div class="artist-name">roula</div>
+    <div class="artist-style">印象派光影、色散边缘溢光、锐利褶皱、大透视动态、非平衡姿态、电影瞬间、高信息密度。</div>
+    <div class="artist-tags"><span>厚涂</span></div>
   </div>
-
-</div>
-</div>
-
-<!-- ===================== 写实/半写实 ===================== -->
-<div class="category" data-category="realistic">
-<h2>写实 / 半写实 <span class="count">8+</span></h2>
-<div class="category-desc">接近真实照片或精细绘画的写实风格，适合肖像、厚重角色</div>
-<div class="artist-grid">
-
-  <div class="artist-card">
-    <div class="artist-name">artgerm</div>
-    <div class="artist-style">半写实，商业插画感，女性角色精致</div>
-    <div class="artist-tags"><span>半写实</span><span>商业插画</span><span>女性</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">bay子 (bayko)</div>
-    <div class="artist-style">精致半写实，柔和光影，韩系风格</div>
-    <div class="artist-tags"><span>韩系</span><span>半写实</span><span>精致</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">wlop, artgerm</div>
-    <div class="artist-style">厚涂+半写实融合，大片感，氛围+精致面容</div>
-    <div class="artist-tags"><span>经典组合</span><span>大片感</span><span>氛围</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">kawanacy</div>
-    <div class="artist-style">韩系半写实，皮肤质感好，时尚</div>
-    <div class="artist-tags"><span>韩系</span><span>皮肤质感</span><span>时尚</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">mochizukikei</div>
-    <div class="artist-style">柔和半写实，猫眼角色，辨识度高</div>
-    <div class="artist-tags"><span>半写实</span><span>柔和</span><span>猫眼</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">suke</div>
-    <div class="artist-style">精细半写实，光影强烈，电影感</div>
-    <div class="artist-tags"><span>精细</span><span>光影</span><span>电影感</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">nanda</div>
-    <div class="artist-style">写实风角色，表情细腻，成熟系</div>
-    <div class="artist-tags"><span>写实</span><span>成熟</span><span>表情细腻</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">hajin</div>
-    <div class="artist-style">半写实，氛围感，背景精细</div>
-    <div class="artist-tags"><span>半写实</span><span>氛围</span><span>背景</span></div>
-  </div>
-
-</div>
-</div>
-
-<!-- ===================== 氛围/背景 ===================== -->
-<div class="category" data-category="atmosphere">
-<h2>氛围 / 背景特化 <span class="count">7+</span></h2>
-<div class="category-desc">擅长场景、背景、光感、氛围渲染的画师，适合风景或带背景的角色图</div>
-<div class="artist-grid">
-
-  <div class="artist-card">
+  <div class="artist-card" data-categories="painterly atmosphere">
     <div class="artist-name">wlop</div>
-    <div class="artist-style">史诗感背景，体积光，氛围王者</div>
-    <div class="artist-tags"><span>背景</span><span>氛围</span><span>体积光</span></div>
+    <div class="artist-style">写实油画笔触、电影级强逆光、厚涂虚实对标、凄美史诗、飞鸟珠宝、清冷易碎。</div>
+    <div class="artist-tags"><span>厚涂</span><span>氛围</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">aladdin (aladdin t)</div>
-    <div class="artist-style">幻想背景，夕阳/夜景擅长</div>
-    <div class="artist-tags"><span>幻想</span><span>夜景</span><span>夕阳</span></div>
+  <div class="artist-card" data-categories="painterly">
+    <div class="artist-name">shal.e</div>
+    <div class="artist-style">无轮廓色块、精致五官、水光厚唇、电影氛围光、陶瓷通透肌、颓废唯美、亚文化。</div>
+    <div class="artist-tags"><span>厚涂</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">lack, wlop</div>
-    <div class="artist-style">华丽角色 + 史诗背景的强力组合</div>
-    <div class="artist-tags"><span>经典组合</span><span>华丽</span><span>史诗</span></div>
+  <div class="artist-card" data-categories="painterly realistic">
+    <div class="artist-name">nixeu</div>
+    <div class="artist-style">韩系半写实、中心肖像景深、轮廓光骨相、宝石瞳、丝绸流光、泪囊妆、禁欲美感。</div>
+    <div class="artist-tags"><span>厚涂</span><span>写实</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">g pump</div>
-    <div class="artist-style">科幻背景，机械场景，冷色调</div>
-    <div class="artist-tags"><span>科幻</span><span>机械</span><span>冷色调</span></div>
+  <div class="artist-card" data-categories="painterly fleshy">
+    <div class="artist-name">egami</div>
+    <div class="artist-style">写实渲染混幼态造型，环境光逻辑，冷暖对比，肉感通透度，被动柔弱姿态，高密度材质（布料褶皱/皮肤红晕/膝盖），第一人称POV，禁忌叙事，感官冲击。</div>
+    <div class="artist-tags"><span>厚涂</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">makoto shinkai</div>
-    <div class="artist-style">新海诚风，通透天空/云彩，光影细腻（需通过其他画师标签间接实现）</div>
-    <div class="artist-tags"><span>新海诚风</span><span>天空</span><span>光影</span></div>
+  <div class="artist-card" data-categories="painterly fleshy">
+    <div class="artist-name">pinki o64</div>
+    <div class="artist-style">进阶厚涂、高饱和粉紫调。幼态圆脸、宝石眼、重睫毛、娇羞红晕。极重肉感、大腿腰腹脂肪堆积、写实立体肚脐。湿润高光、密集成片。JK内衣混搭、滑落瞬间、强局部刻画。</div>
+    <div class="artist-tags"><span>厚涂</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">yonesan (yonesan)</div>
-    <div class="artist-style">富有张力的场景，黄昏/逆光擅长</div>
-    <div class="artist-tags"><span>场景</span><span>黄昏</span><span>逆光</span></div>
+  <div class="artist-card" data-categories="fleshy painterly">
+    <div class="artist-name">ru zhai</div>
+    <div class="artist-style">湿润皮肤、油汗高光、体块挤压。明亮通透、高饱二次元色、冷背暖皮、SSS血色阴影。大透视、俯仰视角、粗壮下肢、视线对齐。金属反光、薄纱透明、饰品繁杂。华丽润泽。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>厚涂</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">shio (shiokara)</div>
-    <div class="artist-style">透明感场景，水边/雨天擅长</div>
-    <div class="artist-tags"><span>水边</span><span>雨天</span><span>透明感</span></div>
+  <div class="artist-card" data-categories="painterly realistic">
+    <div class="artist-name">Alex Negrea</div>
+    <div class="artist-style">欧美厚涂，写实光影，奇幻题材</div>
+    <div class="artist-tags"><span>厚涂</span><span>写实</span></div>
   </div>
+</div>
+</div>
 
+<!-- ===================== 淡彩 / 水彩 / 透明感 ===================== -->
+<div class="category" data-category="watercolor">
+<h2>淡彩 / 水彩 / 透明感 <span class="count">9+</span></h2>
+<div class="category-desc">清淡通透、边缘柔和的轻涂风格</div>
+<div class="artist-grid">
+  <div class="artist-card" data-categories="fleshy watercolor">
+    <div class="artist-name">ibara riato</div>
+    <div class="artist-style">糖果色虹彩、色差效果、低对比阴影、强逆光丁达尔、极幼态、悬浮粒子、自然植物、华丽装饰性。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>淡彩/水彩</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor">
+    <div class="artist-name">ask (askzy)</div>
+    <div class="artist-style">极致通透、冷淡仙气、极细线结构、珠宝级剔透质感、高级灰、空灵留白、复杂饰品、时尚插画风。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy watercolor">
+    <div class="artist-name">kanzarin</div>
+    <div class="artist-style">荧光空气感、奶油果冻弹性、湿透半透明、幼态反差、鼻尖膝盖高光、柔焦交融、精致线稿。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>淡彩/水彩</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor atmosphere">
+    <div class="artist-name">fuzichoco</div>
+    <div class="artist-style">极高饱和逆光、金属晶体华丽反光、超广角鱼眼、高信息密度、宝石瞳、浪漫幻想史诗感。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor atmosphere">
+    <div class="artist-name">rella</div>
+    <div class="artist-style">玻璃金属通透质感、丝绸发丝、丁达尔神圣感、几何秩序、修长优雅、史诗意境、高明度。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor atmosphere unique">
+    <div class="artist-name">yuzuriha (nx e78)</div>
+    <div class="artist-style">水下梦幻感、流体泡泡碎星、冷调蓝紫、水彩晕染、宝石水光眼、微醺大面积腮红、白皙果冻皮、纤细平面化线条、清凉梦幻、装饰性水感。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>氛围</span><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor atmosphere fleshy">
+    <div class="artist-name">pon (ponidrop)</div>
+    <div class="artist-style">高明度高饱和，冷暖对比，透明感，梦幻逆光，边缘溢光，丰腴比例（巨乳肥臀细腰），华美瞳孔，繁复褶皱，纤细线稿，身体张力，面部娇羞。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>氛围</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor fleshy">
+    <div class="artist-name">mignon</div>
+    <div class="artist-style">湿润系，极致通透，低饱和基调，高亮糖果色，皮肤透明感，肉感深度，宽额头大眼，腰腹大腿软组织，半透明湿衣，汗渍水渍，空气感发丝，夏日时尚诱惑。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="watercolor unique">
+    <div class="artist-name">miwano rag</div>
+    <div class="artist-style">赛博梦幻。高亮低灰、冷背暖肤、环境色溢出。幼态纤细、放射状发丝、装饰性宝石眼。边缘光、逆光、光晕（Bloom）、胶片质感。水感、玻璃感、半透明叠加。意识流、气泡、几何、光点。</div>
+    <div class="artist-tags"><span>淡彩/水彩</span><span>独特画风</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== 写实 / 半写实 ===================== -->
+<div class="category" data-category="realistic">
+<h2>写实 / 半写实 <span class="count">3+</span></h2>
+<div class="category-desc">接近真实照片或精细绘画的写实风格</div>
+<div class="artist-grid">
+  <div class="artist-card" data-categories="realistic atmosphere">
+    <div class="artist-name">arsenixc</div>
+    <div class="artist-style">超写实背景、黄金时刻侧光、高饱和晚霞夕阳、密集物品堆叠、积水倒影、电影级广角透视。</div>
+    <div class="artist-tags"><span>写实</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="realistic atmosphere">
+    <div class="artist-name">shinkai makoto</div>
+    <div class="artist-style">强对比逆光、辉光渲染、新海蓝紫渐变、摄影级超写实、积雨云、电线杆、孤独治愈壁纸感。</div>
+    <div class="artist-tags"><span>写实</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="realistic unique">
+    <div class="artist-name">swav</div>
+    <div class="artist-style">硬核机能、冷冽冰蓝钛白、过曝洁净、机甲软装融合、极简构图、极繁细节、时尚杂志工业感。</div>
+    <div class="artist-tags"><span>写实</span><span>独特画风</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== 氛围 / 背景 / 逆光 ===================== -->
+<div class="category" data-category="atmosphere">
+<h2>氛围 / 背景 / 逆光 <span class="count">8+</span></h2>
+<div class="category-desc">擅长场景氛围、逆光通透感、空气感的画师</div>
+<div class="artist-grid">
+  <div class="artist-card" data-categories="fleshy atmosphere">
+    <div class="artist-name">rhtkd</div>
+    <div class="artist-style">强逆光温差对比、边缘光、油润高反光肤质、九头身修长、繁复眼部细节、半透明丝绸材质、特效粒子、华丽装饰。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy atmosphere">
+    <div class="artist-name">rafaelaaa</div>
+    <div class="artist-style">强逆光轮廓光、Lens Flare、高饱和色相叠加、冷暖互补、电影级定格、对角线构图、大气梦幻叙事。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="atmosphere">
+    <div class="artist-name">mebe (teadia violet)</div>
+    <div class="artist-style">电影感叙事、冷调低饱和、强明暗对比、窗影体积感、清冷病娇、粒子特效、束缚对抗张力。</div>
+    <div class="artist-tags"><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="atmosphere">
+    <div class="artist-name">mocha (cotton)</div>
+    <div class="artist-style">大景小人、仰角广角、发光体、强冷暖对比、电影滤镜、云海信号塔、静默史诗、清新治愈。</div>
+    <div class="artist-tags"><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique atmosphere">
+    <div class="artist-name">vofan</div>
+    <div class="artist-style">光影魔术、柔焦摄影风、色散效果、半透明气泡、大角度斜构图、玻璃珠瞳、生活化叙事。</div>
+    <div class="artist-tags"><span>独特画风</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy atmosphere">
+    <div class="artist-name">jiang ye kiri</div>
+    <div class="artist-style">强逆光，轮廓光，次表面散射，光晕特效，通透空气感，冷暖对比，肉感曲线，温润皮肤，宝石瞳，丝滑流线发丝，景深虚化，色散镜头感，赛璐璐厚涂。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>氛围</span></div>
+  </div>
+  <div class="artist-card" data-categories="atmosphere fleshy">
+    <div class="artist-name">mafuyu (chibi21)</div>
+    <div class="artist-style">梦幻透明。幼态、叠色宝石瞳、重睫毛。高明度蓝紫白、彩色阴影、环境光映射。强逆光、边缘光晕、碎光、虚化光斑。呼吸感、发丝轻盈纤细、空气感。</div>
+    <div class="artist-tags"><span>氛围</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="atmosphere fleshy">
+    <div class="artist-name">navy (navy.blue)</div>
+    <div class="artist-style">糖果色、幼面肉感、软色情。湿润大眼、重下眼线、桃色腮红、微张唇。弹性挤压、关节粉晕。漫反射、边缘光、梦幻柔光。粉白淡紫、低对比、透明发丝。第一人称视角、金属勒痕。</div>
+    <div class="artist-tags"><span>氛围</span><span>肉感/色气</span></div>
+  </div>
 </div>
 </div>
 
 <!-- ===================== 独特画风 ===================== -->
 <div class="category" data-category="unique">
-<h2>独特画风 <span class="count">8+</span></h2>
-<div class="category-desc">辨识度极高、不便于分类的特殊风格，适合想要与众不同的输出</div>
+<h2>独特画风 <span class="count">10+</span></h2>
+<div class="category-desc">辨识度极高、不便于分类的特殊风格</div>
 <div class="artist-grid">
-
-  <div class="artist-card">
-    <div class="artist-name">umezawa (umezawadon)</div>
-    <div class="artist-style">独特上色，复古昭和感，饱和度低</div>
-    <div class="artist-tags"><span>复古</span><span>昭和</span><span>低饱和</span></div>
+  <div class="artist-card" data-categories="unique fleshy">
+    <div class="artist-name">tianliang duohe fangdongye</div>
+    <div class="artist-style">极幼2-3头身、圆脸大眼、鱼眼广角、足部特写特化、发光感滤镜、细腻肤质、硬核机甲配件、赛博军事。</div>
+    <div class="artist-tags"><span>独特画风</span><span>肉感/色气</span></div>
   </div>
-
-  <div class="artist-card">
+  <div class="artist-card" data-categories="unique">
+    <div class="artist-name">himiya jouzu</div>
+    <div class="artist-style">极简细线、大量留白、豆豆眼颜艺、瞬间爆发力、夏日平涂、治愈清新、魔性冷幽默反差。</div>
+    <div class="artist-tags"><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy unique">
+    <div class="artist-name">akie</div>
+    <div class="artist-style">高明度病弱感、粉紫白冷暖调、眼神涣散、关节重粉晕染、医疗宗教符号、极简露骨、脆弱诱惑。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique fleshy">
+    <div class="artist-name">kamu (geeenius)</div>
+    <div class="artist-style">极简幼态五官、红粉大虹膜、高饱和色边阴影、腹肌胯部轮廓、骨肉平衡、几何块状高光、暗示性。</div>
+    <div class="artist-tags"><span>独特画风</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique">
+    <div class="artist-name">lirseven</div>
+    <div class="artist-style">赛博冷色调、RGB色散霓虹、锐利边界、晶莹玻璃水渍、修长时尚、丰富几何元素、潮流平面感。</div>
+    <div class="artist-tags"><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique fleshy">
+    <div class="artist-name">sushispin</div>
+    <div class="artist-style">赛博病娇、极端俯仰透视、私密偷窥感、失神崩坏、单侧强光源、黑暗系软色情、生理褶皱。</div>
+    <div class="artist-tags"><span>独特画风</span><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique">
+    <div class="artist-name">cogecha</div>
+    <div class="artist-style">波普故障风、强对比补色、冷调疏离、几何符号、厌世少女、工业废墟、平面感、都市灵性。</div>
+    <div class="artist-tags"><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique">
+    <div class="artist-name">lam (ramdayo)</div>
+    <div class="artist-style">赛博波普、荧光补色、瞳孔几何星辰、半调网点、锐利片状发、人工材质攻击性、高精密。</div>
+    <div class="artist-tags"><span>独特画风</span></div>
+  </div>
+  <div class="artist-card" data-categories="unique">
     <div class="artist-name">yoneyama mai</div>
-    <div class="artist-style">华丽装饰风，繁复图案，设计感强</div>
-    <div class="artist-tags"><span>装饰风</span><span>繁复</span><span>设计感</span></div>
+    <div class="artist-style">虹彩撞色、色散溢光、液态透明件、折射漫反射、碎片动态构图、湿润感、电影张力。</div>
+    <div class="artist-tags"><span>独特画风</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">abec (abec)</div>
-    <div class="artist-style">刀剑神域画师，清新又锐利</div>
-    <div class="artist-tags"><span>SAO</span><span>清新</span><span>锐利</span></div>
+  <div class="artist-card" data-categories="fleshy unique">
+    <div class="artist-name">negimapurinn</div>
+    <div class="artist-style">重装饰满溢构图、碎片环绕、高饱炫光棱镜、果冻色透明阴影、冷硬金属与液态通透、幼态脸性感身躯、甜辣风、繁琐束缚配饰、精致物欲、极高信息量。</div>
+    <div class="artist-tags"><span>肉感/色气</span><span>独特画风</span></div>
   </div>
-
-  <div class="artist-card">
-    <div class="artist-name">nagano (naganon)</div>
-    <div class="artist-style">可爱软萌风，圆润线条，治愈系</div>
-    <div class="artist-tags"><span>软萌</span><span>圆润</span><span>治愈</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">haku (haku123)</div>
-    <div class="artist-style">和风/水墨风，笔触奔放</div>
-    <div class="artist-tags"><span>和风</span><span>水墨</span><span>奔放</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">shiratama</div>
-    <div class="artist-style">萌系，圆润，可爱角色</div>
-    <div class="artist-tags"><span>萌系</span><span>可爱</span><span>圆润</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">saitom</div>
-    <div class="artist-style">现代萌系+扎实人体，角色多样</div>
-    <div class="artist-tags"><span>萌系</span><span>人体扎实</span><span>角色多样</span></div>
-  </div>
-
-  <div class="artist-card">
-    <div class="artist-name">hotoke</div>
-    <div class="artist-style">佛像风/独特水墨渲染，另类审美</div>
-    <div class="artist-tags"><span>独特</span><span>水墨</span><span>另类</span></div>
-  </div>
-
 </div>
 </div>
 
-<!-- ===================== 画师串组合推荐 ===================== -->
+<!-- ===================== 肉感 / 丰腴 ===================== -->
+<div class="category" data-category="fleshy">
+<h2>肉感 / 丰腴 <span class="count">7+</span></h2>
+<div class="category-desc">强调身材曲线、肌肤质感、性感魅惑的风格</div>
+<div class="artist-grid">
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">fukahire (ruinon)</div>
+    <div class="artist-style">镭射虹彩、极光色、透明材质、柔和光晕、幼态、星光瞳、轻盈流体发、四季意象、幻想哥特、信息量极大。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">berserker r</div>
+    <div class="artist-style">极致肉感比例、脂肪挤压、幼态萌系、深色渐变腮红、珍珠质感皮肤、点状高光、糖果色、清透。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">sg satoumogumogu</div>
+    <div class="artist-style">核心向丰腴、重力下垂感、肢体勒痕、油亮通透、汗滴红晕、玻璃质感瞳、高饱和柔光、手办视觉化。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">shigure s</div>
+    <div class="artist-style">极致丰腴、肉感曲线、勒痕挤压、小恶魔魅惑眼神、微醺红晕、高反光胶衣金属、强对比、商业涩气。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">sora 72-iro</div>
+    <div class="artist-style">宽胯厚腿、肉体变形、汗湿油亮质感、童颜长相、迷离神情、丝袜束缚陷进感、强官能诱惑。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">coffee-kizoku</div>
+    <div class="artist-style">梨形巨乳、腰跨比、软组织形变、幼态童颜、湿润唇部高光、冷调阴影、点状水润高光、聚焦躯干。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+  <div class="artist-card" data-categories="fleshy">
+    <div class="artist-name">fanteam</div>
+    <div class="artist-style">勒肉、躯干挤压、臀腿丰满。果冻肤、通透、滑腻、局部泛红。极简鼻、大眼、羞涩、渴求神态。腋下、肚脐、腹股沟、浸湿、半透明布料。强环境色、强高光、清爽色域。</div>
+    <div class="artist-tags"><span>肉感/色气</span></div>
+  </div>
+</div>
+</div>
+
 <div class="usage-box">
   <h3>经典画师串组合参考</h3>
   <table class="combo-table">
     <tr><th>组合</th><th style="width:50%">效果</th><th>适合场景</th></tr>
-    <tr>
-      <td class="prompt-example">ask, ntoskr</td>
-      <td>柔和 + 锐利的平衡，万能组合</td>
-      <td>角色立绘、日常场景</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">wlop, artgerm</td>
-      <td>厚涂氛围 + 精致面容</td>
-      <td>奇幻/史诗角色肖像</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">krenz, wlop</td>
-      <td>光影结构 + 氛围渲染</td>
-      <td>光影氛围场景</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">lack, wlop</td>
-      <td>华丽角色 + 史诗背景</td>
-      <td>Fate系、战斗场景</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">memeno, fuusuke</td>
-      <td>动态构图 + 爽快动作线</td>
-      <td>动作/战斗场景</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">feima, rella</td>
-      <td>淡彩 + 水彩，轻薄透明感</td>
-      <td>治愈/浪漫/日常</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">loundraw, wlop</td>
-      <td>剧场透明感 + 氛围光</td>
-      <td>电影感场景</td>
-    </tr>
-    <tr>
-      <td class="prompt-example">mika pikazo, krenz</td>
-      <td>色彩爆发 + 坚实结构</td>
-      <td>视觉系、舞台</td>
-    </tr>
+    <tr><td class="prompt-example">ask, ntoskr</td><td>柔和 + 锐利的平衡，万能组合</td><td>角色立绘、日常场景</td></tr>
+<tr><td class="prompt-example">wlop, artgerm</td><td>厚涂氛围 + 精致面容</td><td>奇幻/史诗角色肖像</td></tr>
+<tr><td class="prompt-example">krenz, wlop</td><td>光影结构 + 氛围渲染</td><td>光影氛围场景</td></tr>
+<tr><td class="prompt-example">lack, wlop</td><td>华丽角色 + 史诗背景</td><td>Fate系、战斗场景</td></tr>
+<tr><td class="prompt-example">memeno, fuusuke</td><td>动态构图 + 爽快动作线</td><td>动作/战斗场景</td></tr>
+<tr><td class="prompt-example">feima, rella</td><td>淡彩 + 水彩，轻薄透明感</td><td>治愈/浪漫/日常</td></tr>
+<tr><td class="prompt-example">loundraw, wlop</td><td>剧场透明感 + 氛围光</td><td>电影感场景</td></tr>
+<tr><td class="prompt-example">mika pikazo, krenz</td><td>色彩爆发 + 坚实结构</td><td>视觉系、舞台</td></tr>
   </table>
 </div>
 
-<!-- ===================== 使用小贴士 ===================== -->
 <div class="usage-box">
   <h3>关于画师串的几点说明</h3>
   <table class="combo-table">
     <tr><th style="width:20%">项目</th><th>说明</th></tr>
-    <tr><td>格式</td><td>在 prompt 中以 <code>artist:name</code> 格式插入，多个画师用逗号分隔</td></tr>
-    <tr><td>数量</td><td>推荐 1~3 个画师串，太多会导致风格模糊</td></tr>
-    <tr><td>权重</td><td>可以用 <code>(artist:ask:1.2)</code> 调整单个画师的影响力</td></tr>
-    <tr><td>模型差异</td><td>同一画师 tag 在不同微调模型上的表现可能不同，建议实测</td></tr>
-    <tr><td>反向效果</td><td>在负面 prompt 中加入 <code>artist:bad-hands</code> 等可减少特定画师的不良影响</td></tr>
-    <tr><td>SD 版本</td><td>Illustrious 模型基于 SDXL，不要与 SD1.5 独有 tag 混用</td></tr>
-    <tr><td>新增画师</td><td>如果你用 NoobAI 等衍生产物，支持的画师比原版 Illustrious 更多</td></tr>
-    <tr><td>踩坑注意</td><td>有些 tag 在 Danbooru 上有但在模型里没训练过，出了效果不对就是模型没学过这个画师</td></tr>
+<tr><td>格式</td><td>在 prompt 中以 <code>artist:name</code> 格式插入，多个画师用逗号分隔</td></tr>
+<tr><td>数量</td><td>推荐 1~3 个画师串，太多会导致风格模糊</td></tr>
+<tr><td>权重</td><td>可以用 <code>(artist:ask:1.2)</code> 调整单个画师的影响力</td></tr>
+<tr><td>模型差异</td><td>同一画师 tag 在不同微调模型上的表现可能不同，建议实测</td></tr>
+<tr><td>反向效果</td><td>在负面 prompt 中加入 <code>artist:bad-hands</code> 等可减少特定画师的不良影响</td></tr>
+<tr><td>SD 版本</td><td>Illustrious 模型基于 SDXL，不要与 SD1.5 独有 tag 混用</td></tr>
+<tr><td>新增画师</td><td>如果你用 NoobAI 等衍生产物，支持的画师比原版 Illustrious 更多</td></tr>
+<tr><td>踩坑注意</td><td>有些 tag 在 Danbooru 上有但在模型里没训练过，出了效果不对就是模型没学过这个画师</td></tr>
   </table>
 </div>
 
 <footer>
-  制作于 2026-05-19 · 适用于 Illustrious / NoobAI / 光辉系列模型 · 画师 tag 以 Danbooru 标签为准
+  制作于 2026-05-19 · 数据来源：<a href="https://github.com/crclz/ImageAutoPrompt" style="color:var(--accent)">crclz/ImageAutoPrompt</a> · 适用于 Illustrious / NoobAI / 光辉系列模型
 </footer>
 
 </div>
 
 <script>
-// 筛选功能
 const btns = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.category');
+const cats = document.querySelectorAll('.category');
 btns.forEach(btn => {
   btn.addEventListener('click', () => {
     btns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const filter = btn.dataset.filter;
-    cards.forEach(cat => {
-      if (filter === 'all') {
-        cat.style.display = 'block';
-      } else {
-        cat.style.display = cat.dataset.category === filter ? 'block' : 'none';
-      }
+    cats.forEach(cat => {
+      cat.style.display = (filter === 'all' || cat.dataset.category === filter) ? 'block' : 'none';
     });
   });
 });
